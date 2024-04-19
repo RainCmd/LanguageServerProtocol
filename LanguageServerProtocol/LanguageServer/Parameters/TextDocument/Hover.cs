@@ -7,18 +7,18 @@
     /// The result of a hover request.
     /// </remarks>
     /// <seealso>Spec 3.3.0</seealso>
-    public class Hover
+    public class Hover(HoverContents contents, Range range)
     {
         /// <summary>
         /// The hover's content
         /// </summary>
         /// <seealso>Spec 3.3.0</seealso>
-        public HoverContents? contents;
+        public HoverContents contents = contents;
 
         /// <summary>
         /// An optional range is a range inside a text document
         /// that is used to visualize a hover, e.g. by changing the background color.
         /// </summary>
-        public Range? range;
+        public Range range = range;
     }
 }

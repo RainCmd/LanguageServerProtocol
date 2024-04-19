@@ -21,7 +21,7 @@
         Information = 3,
 
         /// <summary>
-        /// Reports a hint.
+        /// 报告一个提示。
         /// </summary>
         Hint = 4,
     }

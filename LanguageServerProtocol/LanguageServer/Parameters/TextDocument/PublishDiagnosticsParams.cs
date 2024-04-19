@@ -6,12 +6,12 @@
     public class PublishDiagnosticsParams
     {
         /// <summary>
-        /// The URI for which diagnostic information is reported.
+        /// 报告诊断信息的URI。
         /// </summary>
         public Uri? uri;
 
         /// <summary>
-        /// An array of diagnostic information items.
+        /// 诊断信息项的数组。
         /// </summary>
         public Diagnostic[]? diagnostics;
     }

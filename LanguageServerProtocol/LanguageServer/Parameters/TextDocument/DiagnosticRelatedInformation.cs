@@ -1,26 +1,25 @@
 ﻿namespace LanguageServer.Parameters.TextDocument
 {
     /// <summary>
-    /// Represents a related message and source code location for a diagnostic.
+    /// 表示诊断的相关消息和源代码位置。
     /// For <c>textDocument/codeAction</c> and <c>textDocument/publishDiagnostics</c>
     /// </summary>
     /// <remarks>
-    /// This should be used to point to code locations that cause or related to a diagnostics,
-    /// e.g when duplicating a symbol in a scope.
+    /// 这应该用于指向导致诊断或与诊断相关的代码位置，例如在作用域中复制符号时。
     /// </remarks>
     /// <seealso>Spec 3.7.0</seealso>
-    public class DiagnosticRelatedInformation
+    public class DiagnosticRelatedInformation(Location location, string message)
     {
         /// <summary>
-        /// The location of this related diagnostic information.
+        /// 此相关诊断信息的位置。
         /// </summary>
         /// <seealso>Spec 3.7.0</seealso>
-        public Location? location;
+        public Location location = location;
 
         /// <summary>
-        /// The message of this related diagnostic information.
+        /// 此相关诊断信息的消息。
         /// </summary>
         /// <seealso>Spec 3.7.0</seealso>
-        public string? message;
+        public string message = message;
     }
 }
