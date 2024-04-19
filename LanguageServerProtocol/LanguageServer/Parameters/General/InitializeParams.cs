@@ -1,40 +1,48 @@
 ﻿using LanguageServer.Parameters.Workspace;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LanguageServer.Parameters.General
 {
     /// <summary>
     /// For <c>initialize</c>
     /// </summary>
-    public class InitializeParams
+    public class InitializeParams(int processId, Uri rootUri, ClientCapabilities capabilities)
     {
         /// <summary>
-        /// The process Id of the parent process that started the server.
+        /// 启动服务器的父进程的进程Id。
         /// </summary>
-        public int? processId;
+        public int processId = processId;
 
         /// <summary>
-        /// The rootUri of the workspace.
+        /// 工作区的rootPath。如果没有打开文件夹，则为空。
         /// </summary>
-        public Uri? rootUri;
+        public string? rootPath;
 
         /// <summary>
-        /// User provided initialization options.
+        /// 工作区的rootUri。如果没有打开文件夹，则为空。
+        /// 如果同时有<see cref="rootPath"/>和<see cref="rootUri"/>，则以后者为准
+        /// </summary>
+        public Uri rootUri = rootUri;
+
+        /// <summary>
+        /// 客户端当前显示用户界面的语言环境。这不一定是操作系统的区域设置。
+        /// </summary>
+        public string? locale;
+
+        /// <summary>
+        /// 用户提供的初始化选项。
         /// </summary>
         public dynamic? initializationOptions;
 
         /// <summary>
-        /// The capabilities provided by the client (editor or tool)
+        /// 客户端(编辑器或工具)提供的功能
         /// </summary>
-        public ClientCapabilities? capabilities;
+        public ClientCapabilities capabilities = capabilities;
 
         /// <summary>
-        /// The initial trace setting.
+        /// 初始跟踪设置。
         /// </summary>
         /// <remarks>
-        /// If omitted trace is disabled ('off').
+        /// 如果省略，则禁用跟踪('off')。
         /// </remarks>
         /// <value>
         /// See <see cref="LanguageServer.Parameters.TraceKind"/> for an enumeration of standardized kinds.
@@ -43,12 +51,11 @@ namespace LanguageServer.Parameters.General
         public string? trace;
 
         /// <summary>
-        /// The workspace folders configured in the client when the server starts.
+        /// 服务器启动时在客户端中配置的工作区文件夹。
         /// </summary>
         /// <remarks>
-        /// This property is only available if the client supports workspace folders.
-        /// It can be <c>null</c> if the client supports workspace folders but none are
-        /// configured.
+        /// 此属性仅在客户端支持工作区文件夹时可用。
+        /// 如果客户端支持工作空间文件夹但未配置，则可以为null。
         /// </remarks>
         /// <seealso>Spec 3.6.0</seealso>
         public WorkspaceFolder[]? workspaceFolders;

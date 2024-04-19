@@ -7,8 +7,7 @@
     public class TextDocumentClientCapabilities
     {
         /// <summary>
-        /// Capabilities specific to text document synchronization,
-        /// such as <c>textDocument/willSave</c>, <c>textDocument/didSave</c>, etc
+        /// 特定于文本文档同步的功能，例如 textDocument/willSave 、 textDocument/didSave 等
         /// </summary>
         public SynchronizationCapabilities? synchronization;
 

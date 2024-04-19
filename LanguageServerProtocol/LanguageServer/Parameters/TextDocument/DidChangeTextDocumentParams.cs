@@ -3,10 +3,10 @@
     /// <summary>
     /// For <c>textDocument/didChange</c>
     /// </summary>
-    public class DidChangeTextDocumentParams
+    public class DidChangeTextDocumentParams(VersionedTextDocumentIdentifier textDocument, TextDocumentContentChangeEvent[] contentChanges)
     {
-        public VersionedTextDocumentIdentifier? textDocument;
+        public VersionedTextDocumentIdentifier textDocument = textDocument;
 
-        public TextDocumentContentChangeEvent[]? contentChanges;
+        public TextDocumentContentChangeEvent[] contentChanges = contentChanges;
     }
 }

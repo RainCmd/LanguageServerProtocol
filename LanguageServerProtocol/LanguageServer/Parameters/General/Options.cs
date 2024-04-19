@@ -1,35 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LanguageServer.Parameters.General
+﻿namespace LanguageServer.Parameters.General
 {
     /// <summary>
     /// For <c>initialize</c>
     /// </summary>
     /// <remarks>
-    /// a detailed structure defining each notification.
+    /// 定义每个通知的详细结构。
     /// </remarks>
     public class TextDocumentSyncOptions
     {
         /// <summary>
-        /// Open and close notifications are sent to the server.
+        /// 打开和关闭通知被发送到服务器。
         /// </summary>
-        public bool? openClose;
+        public bool openClose;
         /// <summary>
-        /// Change notifications are sent to the server.
+        /// 更改通知被发送到服务器。
         /// </summary>
-        public TextDocumentSyncKind? change;
+        public TextDocumentSyncKind change;
         /// <summary>
-        /// Will save notifications are sent to the server.
+        /// 将保存通知发送到服务器。
         /// </summary>
         public bool? willSave;
         /// <summary>
-        /// Will save wait until requests are sent to the server.
+        /// 将保存等待，直到请求被发送到服务器。
         /// </summary>
         public bool? willSaveWaitUntil;
         /// <summary>
-        /// Save notifications are sent to the server.
+        /// 保存通知被发送到服务器。
         /// </summary>
         public SaveOptions? save;
     }
@@ -38,31 +34,31 @@ namespace LanguageServer.Parameters.General
     /// For <c>initialize</c>
     /// </summary>
     /// <remarks>
-    /// Save options.
+    /// 保存选项
     /// </remarks>
     public class SaveOptions
     {
         /// <summary>
-        /// The client is supposed to include the content on save.
+        /// 客户端应该在保存时包含内容。
         /// </summary>
-        public bool? includeText;
+        public bool includeText;
     }
 
     /// <summary>
     /// For <c>initialize</c>
     /// </summary>
     /// <remarks>
-    /// Completion options.
+    /// 补全选项
     /// </remarks>
     public class CompletionOptions
     {
         /// <summary>
-        /// The server provides support to resolve additional information for a completion item.
+        /// 服务器提供解析补全项的附加信息的支持。
         /// </summary>
-        public bool? resolveProvider;
+        public bool resolveProvider;
 
         /// <summary>
-        /// The characters that trigger completion automatically.
+        /// 自动触发补全的字符。
         /// </summary>
         public string[]? triggerCharacters;
     }
@@ -71,12 +67,12 @@ namespace LanguageServer.Parameters.General
     /// For <c>initialize</c>
     /// </summary>
     /// <remarks>
-    /// Signature help options.
+    /// 签名帮助选项。
     /// </remarks>
     public class SignatureHelpOptions
     {
         /// <summary>
-        /// The characters that trigger signature help automatically.
+        /// 触发签名的字符自动帮助。
         /// </summary>
         public string[]? triggerCharacters;
     }
@@ -90,26 +86,26 @@ namespace LanguageServer.Parameters.General
     public class CodeLensOptions
     {
         /// <summary>
-        /// Code lens has a resolve provider as well.
+        /// Code lens也有一个解析提供程序。
         /// </summary>
-        public bool? resolveProvider;
+        public bool resolveProvider;
     }
 
     /// <summary>
     /// For <c>initialize</c>
     /// </summary>
     /// <remarks>
-    /// Format document on type options.
+    /// 按类型选项格式化文档。
     /// </remarks>
     public class DocumentOnTypeFormattingOptions
     {
         /// <summary>
-        /// A character on which formatting should be triggered, like <c>}</c>.
+        /// 应该在其上触发格式化的字符，如“}”。
         /// </summary>
         public string? firstTriggerCharacter;
 
         /// <summary>
-        /// More trigger characters.
+        /// 更多触发字符。
         /// </summary>
         public string[]? moreTriggerCharacter;
     }
@@ -123,9 +119,9 @@ namespace LanguageServer.Parameters.General
     public class DocumentLinkOptions
     {
         /// <summary>
-        /// Document links have a resolve provider as well.
+        /// 文档链接也有一个解析提供程序。
         /// </summary>
-        public bool? resolveProvider;
+        public bool resolveProvider;
     }
 
     /// <summary>
@@ -137,7 +133,7 @@ namespace LanguageServer.Parameters.General
     public class ExecuteCommandOptions
     {
         /// <summary>
-        /// The commands to be executed on the server
+        /// 需要在服务器上执行的命令
         /// </summary>
         public string[]? commands;
     }

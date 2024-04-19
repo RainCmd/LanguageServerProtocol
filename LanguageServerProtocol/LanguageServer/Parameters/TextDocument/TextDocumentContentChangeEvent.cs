@@ -1,11 +1,11 @@
 ﻿namespace LanguageServer.Parameters.TextDocument
 {
-    public class TextDocumentContentChangeEvent
+    public class TextDocumentContentChangeEvent(Range range, long rangeLength, string text)
     {
-        public Range? range;
+        public Range range = range;
 
-        public long? rangeLength;
+        public long rangeLength = rangeLength;
 
-        public string? text;
+        public string text = text;
     }
 }

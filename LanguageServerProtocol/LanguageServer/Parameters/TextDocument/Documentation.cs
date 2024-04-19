@@ -8,7 +8,7 @@ namespace LanguageServer.Parameters.TextDocument
     /// <c>completionItem/resolve</c>
     /// </summary>
     /// <remarks>
-    /// A human-readable string that represents a doc-comment.
+    /// 一个人类可读的字符串，表示文档注释。
     /// </remarks>
     /// <seealso>Spec 3.3.0</seealso>
     public class Documentation : Either

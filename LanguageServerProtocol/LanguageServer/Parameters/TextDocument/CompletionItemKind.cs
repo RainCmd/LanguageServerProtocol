@@ -4,7 +4,7 @@
     /// For <c>textDocument/completion</c> and <c>completionItem/resolve</c>
     /// </summary>
     /// <remarks>
-    /// The kind of a completion entry.
+    /// 完成条目的类型。
     /// </remarks>
     /// <seealso>Spec 3.4.0</seealso>
     public enum CompletionItemKind

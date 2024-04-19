@@ -4,95 +4,93 @@
     /// For <c>textDocument/completion</c> and <c>completionItem/resolve</c>
     /// </summary>
     /// <seealso>Spec 3.9.0</seealso>
-    public class CompletionItem
+    public class CompletionItem(string label)
     {
         /// <summary>
-        /// The label of this completion item.
+        /// 此完成项的标签。
         /// </summary>
-        public string? label;
+        public string label = label;
 
         /// <summary>
-        /// The kind of this completion item.
+        /// 此完成项的类型。
         /// </summary>
         public CompletionItemKind? kind;
 
         /// <summary>
-        /// A human-readable string with additional information
-        /// about this item, like type or symbol information.
+        /// 一个人类可读的字符串，包含关于该项的附加信息，如类型或符号信息。
         /// </summary>
         public string? detail;
 
         /// <summary>
-        /// A human-readable string that represents a doc-comment.
+        /// 一个人类可读的字符串，表示文档注释。
         /// </summary>
         /// <seealso>Spec 3.3.0</seealso>
         public Documentation? documentation;
 
         /// <summary>
-        /// Indicates if this item is deprecated.
+        /// 指示该项是否已弃用。
         /// </summary>
         /// <seealso>Spec 3.7.2</seealso>
         public bool? deprecated;
 
         /// <summary>
-        /// Select this item when showing.
+        /// 显示时选择此项目。
         /// </summary>
         /// <remarks>
-        /// Note that only one completion item can be selected and that the tool / client decides which item that is.
-        /// The rule is that the <b>first</b> item of those that match best is selected.
+        /// 请注意，只能选择一个完成项，并且由工具/客户端决定是哪个项。
+        /// 规则是选择最匹配的第一个项。
         /// </remarks>
         /// <seealso>Spec 3.9.0</seealso>
         public bool? preselect;
 
         /// <summary>
-        /// A string that should be used when comparing this item with other items.
+        /// 将此项与其他项进行比较时应使用的字符串。
         /// </summary>
         public string? sortText;
 
         /// <summary>
-        /// A string that should be used when filtering a set of completion items.
+        /// 在过滤一组补全项时应使用的字符串。
         /// </summary>
         public string? filterText;
 
         /// <summary>
-        /// A string that should be inserted into a document when selecting this completion.
+        /// 选择此补全时应插入文档中的字符串。
         /// </summary>
         /// <seealso>Spec 3.3.0</seealso>
-        [Obsolete("insertText is deprecated since the spec v3.3.0, please use textEdit instead.")]
+        [Obsolete("自规范v3.3.0以来，insertText已弃用，请使用textEdit代替。")]
         public string? insertText;
 
         /// <summary>
-        /// The format of the insert text.
+        /// 插入文本的格式。
         /// </summary>
         public InsertTextFormat? insertTextFormat;
 
         /// <summary>
-        /// An edit which is applied to a document when selecting this completion.
+        /// 选择此补全时应用于文档的编辑。
         /// </summary>
         public TextEdit? textEdit;
 
         /// <summary>
-        /// An optional array of additional text edits that are applied when selecting this completion.
+        /// 选择此补全时应用的附加文本编辑的可选数组。
         /// </summary>
         public TextEdit[]? additionalTextEdits;
 
         /// <summary>
-        /// An optional set of characters that when pressed while this completion is active
-        /// will accept it first and then type that character.
+        /// 一组可选的字符，在激活此补全功能时按下该字符，将首先接受该字符，然后键入该字符。
         /// </summary>
         /// <remarks>
-        /// Note that all commit characters should have <c>length=1</c> and that superfluous characters will be ignored.
+        /// 注意，所有提交字符的长度都应该是1，多余的字符将被忽略。
         /// </remarks>
         /// <seealso>Spec 3.2.0</seealso>
         public string[]? commitCharacters;
 
         /// <summary>
-        /// An optional command that is executed <b>after</b> inserting this completion.
+        /// 一个可选命令，在插入此补全后执行。
         /// </summary>
         public Command? command;
 
         /// <summary>
-        /// An data entry field that is preserved on a completion item between a completion and a completion resolve request.
+        /// 保存在补全请求和补全解析请求之间的补全项上的数据输入字段。
         /// </summary>
         public dynamic? data;
     }

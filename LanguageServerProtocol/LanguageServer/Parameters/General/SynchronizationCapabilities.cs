@@ -6,20 +6,18 @@
     public class SynchronizationCapabilities : RegistrationCapabilities
     {
         /// <summary>
-        /// The client supports sending will save notifications.
+        /// 客户端支持发送将保存通知。
         /// </summary>
-        public bool? willSave;
+        public bool willSave;
 
         /// <summary>
-        /// The client supports sending a will save request and
-        /// waits for a response providing text edits which will
-        /// be applied to the document before it is saved.
+        /// 客户端支持发送将保存请求，并等待提供文本编辑的响应，该响应将在保存之前应用于文档。
         /// </summary>
-        public bool? willSaveWaitUntil;
+        public bool willSaveWaitUntil;
 
         /// <summary>
-        /// The client supports did save notifications.
+        /// 客户端支持保存通知。
         /// </summary>
-        public bool? didSave;
+        public bool didSave;
     }
 }

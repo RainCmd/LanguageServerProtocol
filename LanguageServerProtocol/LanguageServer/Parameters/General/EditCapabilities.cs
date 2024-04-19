@@ -6,8 +6,8 @@
     public class EditCapabilities
     {
         /// <summary>
-        /// The client supports versioned document changes in <c>WorkspaceEdit</c>s
+        /// 客户端支持在 WorkspaceEdit 中进行版本化文档更改
         /// </summary>
-        public bool? documentChanges;
+        public bool documentChanges;
     }
 }

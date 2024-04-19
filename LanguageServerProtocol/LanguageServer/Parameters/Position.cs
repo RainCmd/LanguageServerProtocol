@@ -21,9 +21,9 @@
     /// <c>workspace/applyEdit</c>, and
     /// <c>workspace/symbol</c>
     /// </summary>
-    public class Position
+    public class Position(long line, long character)
     {
-        public long? line;
-        public long? character;
+        public long line = line;
+        public long character = character;
     }
 }

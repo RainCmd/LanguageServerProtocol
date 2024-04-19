@@ -17,9 +17,9 @@
     /// <c>workspace/applyEdit</c>, and
     /// <c>workspace/symbol</c>
     /// </summary>
-    public class Range
+    public class Range(Position start, Position end)
     {
-        public Position? start;
-        public Position? end;
+        public Position start = start;
+        public Position end = end;
     }
 }

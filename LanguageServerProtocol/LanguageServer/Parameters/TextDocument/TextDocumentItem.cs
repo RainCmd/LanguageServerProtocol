@@ -1,13 +1,13 @@
 ﻿namespace LanguageServer.Parameters.TextDocument
 {
-    public class TextDocumentItem
+    public class TextDocumentItem(Uri uri, string languageId, long version, string text)
     {
-        public Uri? uri;
+        public Uri uri = uri;
 
-        public string? languageId;
+        public string languageId = languageId;
 
-        public long? version;
+        public long version = version;
 
-        public string? text;
+        public string text = text;
     }
 }

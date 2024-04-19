@@ -1,7 +1,7 @@
 ﻿namespace LanguageServer.Parameters.TextDocument
 {
-    public class DidCloseTextDocumentParams
+    public class DidCloseTextDocumentParams(TextDocumentIdentifier textDocument)
     {
-        public TextDocumentIdentifier? textDocument;
+        public TextDocumentIdentifier textDocument = textDocument;
     }
 }

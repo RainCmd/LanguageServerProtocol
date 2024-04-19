@@ -7,11 +7,10 @@
     public class CompletionParams : TextDocumentPositionParams
     {
         /// <summary>
-        /// The completion context.
+        /// 完成上下文。
         /// </summary>
         /// <remarks>
-        /// This is only available if the client specifies to send this
-        /// using <c>ClientCapabilities.textDocument.completion.contextSupport === true</c>
+        /// 这只在客户端指定使用 ClientCapabilities.textDocument.completion.contextSupport === true 有效
         /// </remarks>/remarks>
         /// <seealso>Spec 3.3.0</seealso>
         public CompletionContext? context;

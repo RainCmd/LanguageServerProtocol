@@ -7,47 +7,46 @@
     public class WorkspaceClientCapabilities
     {
         /// <summary>
-        /// The client supports applying batch edits to the workspace by supporting
-        /// the request <c>workspace/applyEdit</c>
+        /// 客户端通过支持请求 workspace/applyEdit 来支持对工作空间应用批量编辑
         /// </summary>
-        public bool? applyEdit;
+        public bool applyEdit;
 
         /// <summary>
-        /// Capabilities specific to <c>WorkspaceEdit</c>s
+        /// 特定于 WorkspaceEdit 的功能
         /// </summary>
         public EditCapabilities? workspaceEdit;
 
         /// <summary>
-        /// Capabilities specific to the <c>workspace/didChangeConfiguration</c> notification.
+        /// 特定于 workspace/didChangeConfiguration 通知的功能。
         /// </summary>
         public RegistrationCapabilities? didChangeConfiguration;
 
         /// <summary>
-        /// Capabilities specific to the <c>workspace/didChangeWatchedFiles</c> notification.
+        /// 特定于 workspace/didChangeWatchedFiles 通知的功能。
         /// </summary>
         public RegistrationCapabilities? didChangeWatchedFiles;
 
         /// <summary>
-        /// Capabilities specific to the <c>workspace/symbol</c> request.
+        /// 特定于 workspace/symbol 请求的功能。
         /// </summary>
         /// <seealso>Spec 3.4.0</seealso>
         public SymbolCapabilities? symbol;
 
         /// <summary>
-        /// Capabilities specific to the <c>workspace/executeCommand</c> request.
+        /// 特定于 workspace/executeCommand 请求的功能。
         /// </summary>
         public RegistrationCapabilities? executeCommand;
 
         /// <summary>
-        /// The client has support for workspace folders.
+        /// 客户端支持工作区文件夹。
         /// </summary>
         /// <seealso>Spec 3.6.0</seealso>
-        public bool? workspaceFolders;
+        public bool workspaceFolders;
 
         /// <summary>
-        /// The client supports <c>workspace/configuration</c> requests.
+        /// 客户端支持 workspace/configuration 请求。
         /// </summary>
         /// <seealso>Spec 3.6.0</seealso>
-        public bool? configuration;
+        public bool configuration;
     }
 }

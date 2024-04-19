@@ -21,8 +21,8 @@
     /// <c>textDocument/rename</c>, and
     /// <c>workplace/applyEdit</c>
     /// </summary>
-    public class TextDocumentIdentifier
+    public class TextDocumentIdentifier(Uri uri)
     {
-        public Uri? uri;
+        public Uri uri = uri;
     }
 }
