@@ -6,11 +6,11 @@
     /// <param name="range"></param>
     /// <param name="rangeLength"></param>
     /// <param name="text"></param>
-    public class TextDocumentContentChange(Range range, long rangeLength, string text)
+    public class TextDocumentContentChange(Range range, string text)
     {
         public Range range = range;
 
-        public long rangeLength = rangeLength;
+        public long? rangeLength;
 
         public string text = text;
     }
