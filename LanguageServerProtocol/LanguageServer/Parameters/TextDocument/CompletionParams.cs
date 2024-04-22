@@ -4,7 +4,7 @@
     /// For <c>textDocument/completion</c>
     /// </summary>
     /// <seealso>Spec 3.3.0</seealso>
-    public class CompletionParams : TextDocumentPositionParams
+    public class CompletionParams(TextDocumentIdentifier textDocument, Position position) : TextDocumentPositionParams(textDocument, position)
     {
         /// <summary>
         /// 完成上下文。

@@ -33,7 +33,8 @@ namespace LanguageServer.Infrastructure.JsonDotNet
                 [typeof(Documentation)] = ToDocumentation,
                 [typeof(CompletionResult)] = ToCompletionResult,
                 [typeof(DocumentSymbolResult)] = ToDocumentSymbolResult,
-                [typeof(HoverContents)] = ToHoverContents
+                [typeof(HoverContents)] = ToHoverContents,
+                [typeof(TextDocumentContentChangeEvent)] = ToTextDocumentContentChangeEvent,
             };
         }
 
@@ -223,6 +224,18 @@ namespace LanguageServer.Infrastructure.JsonDotNet
             }
         }
 
+        private TextDocumentContentChangeEvent? ToTextDocumentContentChangeEvent(JToken token)
+        {
+            switch (token.Type)
+            {
+                case JTokenType.Null: return null;
+                case JTokenType.Object:
+                    var obj = (JObject)token;
+                    if (obj.Count == 1) return obj.ToObject<TextDocumentContentWhole>()!;
+                    else return obj.ToObject<TextDocumentContentChange>()!;
+                default: throw new JsonSerializationException();
+            }
+        }
         #endregion
 
         /// <summary>
