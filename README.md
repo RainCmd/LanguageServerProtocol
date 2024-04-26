@@ -6,3 +6,8 @@
 * 修复一些小bug
 * 请求的取消Token作为请求函数的第二个参数，并且是可选的
 * 部分接口的注释进行汉化
+* 补充一些遗漏的参数和功能
+
+# 其他
+[语言服务器协议规范- 3.17](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification)
+[实现语言的服务器](https://microsoft.github.io/language-server-protocol/implementors/servers/)
