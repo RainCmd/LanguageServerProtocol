@@ -3,10 +3,10 @@
     /// <summary>
     /// For <c>initialize</c>
     /// </summary>
-    public class InitializeErrorData
+    public class InitializeErrorData(bool retry)
     {
         /// <summary>
-        /// Indicates whether the client execute the following retry logic.
+        /// 指示客户端是否执行以下重试逻辑。
         /// </summary>
         /// <remarks>
         /// <list type="number">
@@ -15,6 +15,6 @@
         /// <item><description>if user selected retry the initialize method is sent again</description></item>
         /// </list>
         /// </remarks>
-        public bool? retry;
+        public bool retry = retry;
     }
 }

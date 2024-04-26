@@ -3,16 +3,21 @@
     /// <summary>
     /// For <c>textDocument/publishDiagnostics</c>
     /// </summary>
-    public class PublishDiagnosticsParams
+    public class PublishDiagnosticsParams(Uri uri, Diagnostic[] diagnostics)
     {
         /// <summary>
         /// 报告诊断信息的URI。
         /// </summary>
-        public Uri? uri;
+        public readonly Uri uri = uri;
+
+        /// <summary>
+        /// 可选发布诊断的文档的版本号。
+        /// </summary>
+        public int? version;
 
         /// <summary>
         /// 诊断信息项的数组。
         /// </summary>
-        public Diagnostic[]? diagnostics;
+        public readonly Diagnostic[] diagnostics = diagnostics;
     }
 }

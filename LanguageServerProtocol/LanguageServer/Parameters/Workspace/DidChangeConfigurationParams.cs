@@ -2,7 +2,9 @@
 {
     public class DidChangeConfigurationParams
     {
-        // TODO: any
+        /// <summary>
+        /// 实际更改的设置
+        /// </summary>
         public dynamic? settings;
     }
 }

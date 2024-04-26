@@ -61,6 +61,25 @@
         /// 自动触发补全的字符。
         /// </summary>
         public string[]? triggerCharacters;
+
+        /// <summary>
+        /// 提交补全的所有可能字符的列表。如果客户端不支持每个补全项单独提交字符，则可以使用此字段。参见客户端功能
+        /// `completion.completionItem.commitCharactersSupport`
+        /// </summary>
+        public string[]? allCommitCharacters;
+
+        /// <summary>
+        /// 服务器支持以下“CompletionItem”特定功能。
+        /// </summary>
+        public CompletionOptionsItem? completionItem;
+    }
+
+    public class CompletionOptionsItem
+    {
+        /// <summary>
+        /// 当在resolve调用中接收到一个完成项时，服务器支持完成项标签详细信息(参见' CompletionItemLabelDetails ')。
+        /// </summary>
+        public bool? labelDetailsSupport;
     }
 
     /// <summary>

@@ -7,9 +7,9 @@
     /// <c>textDocument/definition</c>, and
     /// <c>workspace/symbol</c>
     /// </summary>
-    public class Location
+    public class Location(Uri uri, Range range)
     {
-        public Uri? uri;
-        public Range? range;
+        public Uri uri = uri;
+        public Range range = range;
     }
 }
