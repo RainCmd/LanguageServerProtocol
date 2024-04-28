@@ -1,7 +1,7 @@
 ﻿namespace LanguageServer.Parameters.TextDocument
 {
-    public class CodeLensParams
+    public class CodeLensParams(TextDocumentIdentifier textDocument)
     {
-        public TextDocumentIdentifier? textDocument;
+        public TextDocumentIdentifier textDocument = textDocument;
     }
 }

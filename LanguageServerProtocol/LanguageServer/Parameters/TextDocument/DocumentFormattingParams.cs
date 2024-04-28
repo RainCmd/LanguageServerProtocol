@@ -1,9 +1,9 @@
 ﻿namespace LanguageServer.Parameters.TextDocument
 {
-    public class DocumentFormattingParams
+    public class DocumentFormattingParams(TextDocumentIdentifier textDocument, FormattingOptions options)
     {
-        public TextDocumentIdentifier? textDocument;
+        public TextDocumentIdentifier textDocument = textDocument;
 
-        public FormattingOptions? options;
+        public FormattingOptions options = options;
     }
 }

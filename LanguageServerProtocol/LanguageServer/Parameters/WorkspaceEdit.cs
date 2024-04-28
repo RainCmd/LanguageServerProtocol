@@ -1,6 +1,4 @@
-﻿using LanguageServer.Parameters.Workspace;
-
-namespace LanguageServer.Parameters
+﻿namespace LanguageServer.Parameters
 {
 
     /// <summary>
@@ -16,7 +14,7 @@ namespace LanguageServer.Parameters
         /// <summary>
         /// 保存对现有资源的更改。
         /// </summary>
-        public Dictionary<WorkspaceFolder, TextEdit[]>? changes;
+        public Dictionary<DocumentUri, TextEdit[]>? changes;
 
         /// <summary>
         /// <c>TextDocumentEdit</c>s数组表示对n个不同文本文档的更改，其中每个文本文档编辑针对文本文档的特定版本。

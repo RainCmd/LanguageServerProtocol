@@ -1,7 +1,7 @@
 ﻿namespace LanguageServer.Parameters.TextDocument
 {
-    public class DocumentLinkParams
+    public class DocumentLinkParams(TextDocumentIdentifier textDocument)
     {
-        public TextDocumentIdentifier? textDocument;
+        public TextDocumentIdentifier textDocument = textDocument;
     }
 }

@@ -1,7 +1,10 @@
 ﻿namespace LanguageServer.Parameters.TextDocument
 {
-    public class ReferenceContext
+    public class ReferenceContext(bool includeDeclaration)
     {
-        public bool? includeDeclaration;
+        /// <summary>
+        /// 包括当前符号的声明。
+        /// </summary>
+        public bool includeDeclaration = includeDeclaration;
     }
 }

@@ -1,11 +1,7 @@
 ﻿namespace LanguageServer.Parameters.TextDocument
 {
-    public class RenameParams
+    public class RenameParams(TextDocumentIdentifier textDocument, Position position, string newName) : TextDocumentPositionParams(textDocument, position)
     {
-        public TextDocumentIdentifier? textDocument;
-
-        public Position? position;
-
-        public string? newName;
+        public string newName = newName;
     }
 }
