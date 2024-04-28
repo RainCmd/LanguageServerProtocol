@@ -31,7 +31,7 @@
     /// </code>
     /// </example>
     /// <seealso>Spec 3.3.0</seealso>
-    public class MarkupContent
+    public class MarkupContent(string kind, string value)
     {
         /// <summary>
         /// The type of the Markup
@@ -47,16 +47,16 @@
         /// <description>Markdown is supported as a content format</description>
         /// </item>
         /// </list>
-        /// See <see cref="LanguageServer.Parameters.MarkupKind"/> for an enumeration of standardized kinds.
+        /// See <see cref="MarkupKind"/> for an enumeration of standardized kinds.
         /// </value>
         /// <seealso>Spec 3.3.0</seealso>
-        /// <seealso cref="LanguageServer.Parameters.MarkupKind"/>
-        public string? kind;
+        /// <seealso cref="MarkupKind"/>
+        public string kind = kind;
 
         /// <summary>
         /// The content itself
         /// </summary>
         /// <seealso>Spec 3.3.0</seealso>
-        public string? value;
+        public string value = value;
     }
 }

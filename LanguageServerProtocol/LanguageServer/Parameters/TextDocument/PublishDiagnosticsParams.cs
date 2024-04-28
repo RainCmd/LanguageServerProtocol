@@ -3,12 +3,12 @@
     /// <summary>
     /// For <c>textDocument/publishDiagnostics</c>
     /// </summary>
-    public class PublishDiagnosticsParams(Uri uri, Diagnostic[] diagnostics)
+    public class PublishDiagnosticsParams(DocumentUri uri, Diagnostic[] diagnostics)
     {
         /// <summary>
         /// 报告诊断信息的URI。
         /// </summary>
-        public readonly string uri = uri.ToString();
+        public readonly DocumentUri uri = uri;
 
         /// <summary>
         /// 可选发布诊断的文档的版本号。

@@ -2,6 +2,9 @@
 
 namespace LanguageServer.Parameters.General
 {
+    /// <summary>
+    /// <see cref="General.ProviderOptions"/> | <see cref="General.DiagnosticOptions"/>
+    /// </summary>
     public class DiagnosticOptionsOrProviderOptions : Either
     {
         public bool IsProviderOptions => Type == typeof(ProviderOptions);

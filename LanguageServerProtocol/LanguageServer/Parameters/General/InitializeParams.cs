@@ -5,7 +5,7 @@ namespace LanguageServer.Parameters.General
     /// <summary>
     /// For <c>initialize</c>
     /// </summary>
-    public class InitializeParams(int processId, Uri rootUri, ClientCapabilities capabilities)
+    public class InitializeParams(int processId, DocumentUri rootUri, ClientCapabilities capabilities)
     {
         /// <summary>
         /// 启动服务器的父进程的进程Id。
@@ -21,7 +21,7 @@ namespace LanguageServer.Parameters.General
         /// 工作区的rootUri。如果没有打开文件夹，则为空。
         /// 如果同时有<see cref="rootPath"/>和<see cref="rootUri"/>，则以后者为准
         /// </summary>
-        public Uri rootUri = rootUri;
+        public DocumentUri rootUri = rootUri;
 
         /// <summary>
         /// 客户端当前显示用户界面的语言环境。这不一定是操作系统的区域设置。

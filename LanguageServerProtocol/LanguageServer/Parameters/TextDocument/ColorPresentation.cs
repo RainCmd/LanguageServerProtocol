@@ -4,19 +4,19 @@
     /// For <c>textDocument/colorPresentation</c>
     /// </summary>
     /// <seealso>Spec 3.6.0</seealso>
-    public class ColorPresentation
+    public class ColorPresentation(string label)
     {
         /// <summary>
-        /// The label of this color presentation. It will be shown on the color picker header.
+        /// 这个颜色展示的标签。它将显示在颜色选择器标题上。
         /// </summary>
         /// <remarks>
-        /// By default this is also the text that is inserted when selecting this color presentation.
+        /// 默认情况下，这也是在选择这种颜色表示时插入的文本。
         /// </remarks>
         /// <seealso>Spec 3.6.0</seealso>
-        public string? label;
+        public string label = label;
 
         /// <summary>
-        /// An <see cref="TextEdit">edit</see> which is applied to a document when selecting this presentation for the color.
+        /// 当选择该颜色的表示时应用于文档的一种<see cref="TextEdit">编辑</see>。
         /// </summary>
         /// <remarks>
         /// When <c>falsy</c> the <see cref="label"/> is used.
@@ -25,11 +25,10 @@
         public TextEdit? textEdit;
 
         /// <summary>
-        /// An optional array of additional <see cref="TextEdit">text edits</see>
-        /// that are applied when selecting this color presentation.
+        /// 一个可选的附加<see cref="TextEdit">文本编辑</see>数组，在选择此颜色表示时应用。
         /// </summary>
         /// <remarks>
-        /// Edits must not overlap with the main <see cref="textEdit">edit</see> nor with themselves.
+        /// 编辑不能与<see cref="textEdit">主编辑</see>重叠，也不能与编辑本身重叠。
         /// </remarks>
         /// <seealso>Spec 3.6.0</seealso>
         public TextEdit[]? additionalTextEdits;

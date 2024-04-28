@@ -7,18 +7,20 @@
     /// <see cref="Serializer"/> must support these derived types below:
     /// 必须支持下列派生类型:
     /// <list type="bullet">
+    /// <item><see cref="Parameters.General.ChangeNotificationsOptions"/></item>
+    /// <item><see cref="Parameters.TextDocument.CodeActionResult"/></item>
+    /// <item><see cref="Parameters.General.ColorProviderOptionsOrBoolean"/></item>
+    /// <item><see cref="Parameters.TextDocument.CompletionResult"/></item>
+    /// <item><see cref="Parameters.General.DiagnosticOptionsOrProviderOptions"/></item>
+    /// <item><see cref="Parameters.TextDocument.Documentation"/></item>
+    /// <item><see cref="Parameters.TextDocument.DocumentSymbolResult"/></item>
+    /// <item><see cref="Parameters.General.FoldingRangeProviderOptionsOrBoolean"/></item>
+    /// <item><see cref="Parameters.TextDocument.HoverContents"/></item>
+    /// <item><see cref="Parameters.LocationSingleOrArray"/></item>
     /// <item><see cref="NumberOrString"/></item>
-    /// <item><see cref="LanguageServer.Parameters.LocationSingleOrArray"/></item>
-    /// <item><see cref="LanguageServer.Parameters.General.ChangeNotificationsOptions"/></item>
-    /// <item><see cref="LanguageServer.Parameters.General.ColorProviderOptionsOrBoolean"/></item>
-    /// <item><see cref="LanguageServer.Parameters.General.FoldingRangeProviderOptionsOrBoolean"/></item>
-    /// <item><see cref="LanguageServer.Parameters.General.ProviderOptionsOrBoolean"/></item>
-    /// <item><see cref="LanguageServer.Parameters.General.TextDocumentSync"/></item>
-    /// <item><see cref="LanguageServer.Parameters.TextDocument.CodeActionResult"/></item>
-    /// <item><see cref="LanguageServer.Parameters.TextDocument.Documentation"/></item>
-    /// <item><see cref="LanguageServer.Parameters.TextDocument.CompletionResult"/></item>
-    /// <item><see cref="LanguageServer.Parameters.TextDocument.DocumentSymbolResult"/></item>
-    /// <item><see cref="LanguageServer.Parameters.TextDocument.HoverContents"/></item>
+    /// <item><see cref="Parameters.General.ProviderOptionsOrBoolean"/></item>
+    /// <item><see cref="Parameters.TextDocument.TextDocumentContentChangeEvent"/></item>
+    /// <item><see cref="Parameters.General.TextDocumentSync"/></item>
     /// </list>
     /// </remarks>
     public abstract class Either(object value, Type type)

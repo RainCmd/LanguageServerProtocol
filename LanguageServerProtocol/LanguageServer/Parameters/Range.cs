@@ -19,6 +19,8 @@
     /// </summary>
     /// <remarks>
     /// 表示为(从零开始的)开始和结束位置的文本文档中的范围。范围相当于编辑器中的选择。因此，结束位置是排他的。
+    /// 
+    /// [start, end)
     /// </remarks>
     public class Range(Position start, Position end)
     {

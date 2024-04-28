@@ -6,7 +6,7 @@ namespace LanguageServer.Parameters
     /// <c>textDocument/didChange</c>, and
     /// <c>workspace/applyEdit</c>
     /// </summary>
-    public class VersionedTextDocumentIdentifier(Uri uri, long version) : TextDocumentIdentifier(uri)
+    public class VersionedTextDocumentIdentifier(DocumentUri uri, long version) : TextDocumentIdentifier(uri)
     {
         public long version = version;
     }

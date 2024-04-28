@@ -4,12 +4,12 @@
     /// For <c>textDocument/foldingRange</c>
     /// </summary>
     /// <seealso>Spec 3.10.0</seealso>
-    public class FoldingRangeRequestParam
+    public class FoldingRangeRequestParam(TextDocumentIdentifier textDocument)
     {
         /// <summary>
         /// The text document.
         /// </summary>
         /// <seealso>Spec 3.10.0</seealso>
-        public TextDocumentIdentifier? textDocument;
+        public required TextDocumentIdentifier textDocument = textDocument;
     }
 }

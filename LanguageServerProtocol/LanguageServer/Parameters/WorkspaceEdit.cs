@@ -1,29 +1,35 @@
-﻿namespace LanguageServer.Parameters
+﻿using LanguageServer.Parameters.Workspace;
+
+namespace LanguageServer.Parameters
 {
 
     /// <summary>
     /// For <c>textDocument/rename</c> and <c>workspace/applyEdit</c>
     /// </summary>
     /// <remarks>
-    /// A workspace edit represents changes to many resources managed in the workspace.
-    /// The edit should either provide <c>changes</c> or <c>documentChanges</c>.
-    /// If the client can handle versioned document edits and if <c>documentChanges</c> are present,
-    /// the latter are preferred over <c>changes</c>.
+    /// 工作区编辑表示对工作区中管理的许多资源的更改。编辑应该提供<c>changes</c>或<c>documentChanges</c>。
+    /// 如果客户端可以处理版本化的文档编辑，并且存在<c>documentChanges</c>，则后者优于<c>changes</c>。
     /// </remarks>
     /// <seealso>Spec 3.1.0</seealso>
     public class WorkspaceEdit
     {
         /// <summary>
-        /// Holds changes to existing resources.
+        /// 保存对现有资源的更改。
         /// </summary>
-        public Dictionary<Uri, TextEdit[]>? changes;
+        public Dictionary<WorkspaceFolder, TextEdit[]>? changes;
 
         /// <summary>
-        /// An array of <c>TextDocumentEdit</c>s to express changes to n different text documents
-        /// where each text document edit addresses a specific version of a text document.
-        /// Whether a client supports versioned document edits is expressed
-        /// via <c>WorkspaceClientCapabilities.workspaceEdit.documentChanges</c>.
+        /// <c>TextDocumentEdit</c>s数组表示对n个不同文本文档的更改，其中每个文本文档编辑针对文本文档的特定版本。
+        /// 客户端是否支持版本化的文档编辑通过<c>WorkspaceClientCapabilities.workspaceEdit.documentChanges</c>表示。
         /// </summary>
         public TextDocumentEdit[]? documentChanges;
+
+        /// <summary>
+        /// 更改注释的映射，可以在' AnnotatedTextEdit ' s或创建、重命名和删除文件/文件夹操作中引用。
+        /// </summary>
+        /// <remarks>
+        /// 客户端是否支持此属性取决于客户端功能' workspace.changeAnnotationSupport '。
+        /// </remarks>
+        public Dictionary<string, ChangeAnnotation>? changeAnnotations;
     }
 }

@@ -8,7 +8,7 @@ namespace LanguageServer.Json
         private static readonly JsonSerializerSettings settings = new()
         {
             NullValueHandling = NullValueHandling.Ignore,
-            Converters = [new EitherConverter()]
+            Converters = [new EitherConverter(), new DocumentUriConverter()]
         };
         public static object? Deserialize(Type? objectType, string json)
         {

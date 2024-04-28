@@ -14,7 +14,7 @@
         /// The scope to get the configuration section for.
         /// </summary>
         /// <seealso>Spec 3.6.0</seealso>
-        public Uri? scopeUri;
+        public DocumentUri? scopeUri;
 
         /// <summary>
         /// The configuration section asked for.

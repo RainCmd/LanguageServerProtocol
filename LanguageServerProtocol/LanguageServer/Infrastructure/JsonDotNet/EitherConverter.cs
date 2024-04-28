@@ -22,19 +22,20 @@ namespace LanguageServer.Infrastructure.JsonDotNet
         {
             table = new Dictionary<Type, Func<JToken, object?>>
             {
-                [typeof(NumberOrString)] = ToNumberOrString,
-                [typeof(LocationSingleOrArray)] = ToLocationSingleOrArray,
                 [typeof(ChangeNotificationsOptions)] = ToChangeNotificationsOptions,
-                [typeof(ColorProviderOptionsOrBoolean)] = ToColorProviderOptionsOrBoolean,
-                [typeof(FoldingRangeProviderOptionsOrBoolean)] = ToFoldingRangeProviderOptionsOrBoolean,
-                [typeof(ProviderOptionsOrBoolean)] = ToProviderOptionsOrBoolean,
-                [typeof(TextDocumentSync)] = ToTextDocumentSync,
                 [typeof(CodeActionResult)] = ToCodeActionResult,
-                [typeof(Documentation)] = ToDocumentation,
+                [typeof(ColorProviderOptionsOrBoolean)] = ToColorProviderOptionsOrBoolean,
                 [typeof(CompletionResult)] = ToCompletionResult,
+                [typeof(DiagnosticOptionsOrProviderOptions)] = ToDiagnosticOptionsOrProviderOptions,
+                [typeof(Documentation)] = ToDocumentation,
                 [typeof(DocumentSymbolResult)] = ToDocumentSymbolResult,
+                [typeof(FoldingRangeProviderOptionsOrBoolean)] = ToFoldingRangeProviderOptionsOrBoolean,
                 [typeof(HoverContents)] = ToHoverContents,
+                [typeof(LocationSingleOrArray)] = ToLocationSingleOrArray,
+                [typeof(NumberOrString)] = ToNumberOrString,
+                [typeof(ProviderOptionsOrBoolean)] = ToProviderOptionsOrBoolean,
                 [typeof(TextDocumentContentChangeEvent)] = ToTextDocumentContentChangeEvent,
+                [typeof(TextDocumentSync)] = ToTextDocumentSync,
             };
         }
 
@@ -65,28 +66,6 @@ namespace LanguageServer.Infrastructure.JsonDotNet
 
         #region Deserialization
 
-        private NumberOrString? ToNumberOrString(JToken token)
-        {
-            return token.Type switch
-            {
-                JTokenType.Null => null,
-                JTokenType.Integer => new NumberOrString(token.ToObject<long>()),
-                JTokenType.String => new NumberOrString(token.ToObject<string>()!),
-                _ => throw new JsonSerializationException(),
-            };
-        }
-
-        private LocationSingleOrArray? ToLocationSingleOrArray(JToken token)
-        {
-            return token.Type switch
-            {
-                JTokenType.Null => null,
-                JTokenType.Object => new LocationSingleOrArray(token.ToObject<Location>()!),
-                JTokenType.Array => new LocationSingleOrArray(token.ToObject<Location[]>()!),
-                _ => throw new JsonSerializationException(),
-            };
-        }
-
         private ChangeNotificationsOptions? ToChangeNotificationsOptions(JToken token)
         {
             return token.Type switch
@@ -94,50 +73,6 @@ namespace LanguageServer.Infrastructure.JsonDotNet
                 JTokenType.Null => null,
                 JTokenType.Boolean => new ChangeNotificationsOptions(token.ToObject<bool>()),
                 JTokenType.String => new ChangeNotificationsOptions(token.ToObject<string>()!),
-                _ => throw new JsonSerializationException(),
-            };
-        }
-
-        private ColorProviderOptionsOrBoolean? ToColorProviderOptionsOrBoolean(JToken token)
-        {
-            return token.Type switch
-            {
-                JTokenType.Null => null,
-                JTokenType.Boolean => new ColorProviderOptionsOrBoolean(token.ToObject<bool>()),
-                JTokenType.Object => new ColorProviderOptionsOrBoolean(token.ToObject<ColorProviderOptions>()!),
-                _ => throw new JsonSerializationException(),
-            };
-        }
-
-        private FoldingRangeProviderOptionsOrBoolean? ToFoldingRangeProviderOptionsOrBoolean(JToken token)
-        {
-            return token.Type switch
-            {
-                JTokenType.Null => null,
-                JTokenType.Boolean => new FoldingRangeProviderOptionsOrBoolean(token.ToObject<bool>()),
-                JTokenType.Object => new FoldingRangeProviderOptionsOrBoolean(token.ToObject<FoldingRangeProviderOptions>()!),
-                _ => throw new JsonSerializationException(),
-            };
-        }
-
-        private ProviderOptionsOrBoolean? ToProviderOptionsOrBoolean(JToken token)
-        {
-            return token.Type switch
-            {
-                JTokenType.Null => null,
-                JTokenType.Boolean => new ProviderOptionsOrBoolean(token.ToObject<bool>()),
-                JTokenType.Object => new ProviderOptionsOrBoolean(token.ToObject<ProviderOptions>()!),
-                _ => throw new JsonSerializationException(),
-            };
-        }
-
-        private TextDocumentSync? ToTextDocumentSync(JToken token)
-        {
-            return token.Type switch
-            {
-                JTokenType.Null => null,
-                JTokenType.Integer => new TextDocumentSync(token.ToObject<TextDocumentSyncKind>()),
-                JTokenType.Object => new TextDocumentSync(token.ToObject<TextDocumentSyncOptions>()!),
                 _ => throw new JsonSerializationException(),
             };
         }
@@ -162,13 +97,13 @@ namespace LanguageServer.Infrastructure.JsonDotNet
             }
         }
 
-        private Documentation? ToDocumentation(JToken token)
+        private ColorProviderOptionsOrBoolean? ToColorProviderOptionsOrBoolean(JToken token)
         {
             return token.Type switch
             {
                 JTokenType.Null => null,
-                JTokenType.String => new Documentation(token.ToObject<string>()!),
-                JTokenType.Object => new Documentation(token.ToObject<MarkupContent>()!),
+                JTokenType.Boolean => new ColorProviderOptionsOrBoolean(token.ToObject<bool>()),
+                JTokenType.Object => new ColorProviderOptionsOrBoolean(token.ToObject<ColorProviderOptions>()!),
                 _ => throw new JsonSerializationException(),
             };
         }
@@ -180,6 +115,36 @@ namespace LanguageServer.Infrastructure.JsonDotNet
                 JTokenType.Null => null,
                 JTokenType.Array => new CompletionResult(token.ToObject<CompletionItem[]>()!),
                 JTokenType.Object => new CompletionResult(token.ToObject<CompletionList>()!),
+                _ => throw new JsonSerializationException(),
+            };
+        }
+
+        private DiagnosticOptionsOrProviderOptions? ToDiagnosticOptionsOrProviderOptions(JToken token)
+        {
+            switch (token.Type)
+            {
+                case JTokenType.Null: return null;
+                case JTokenType.Object:
+                    {
+                        var obj = (token as JObject) ?? throw new JsonSerializationException();
+                        if (obj.Property("workspaceDiagnostics") != null)
+                            return new DiagnosticOptionsOrProviderOptions(token.ToObject<DiagnosticOptions>()!);
+                        else
+                            return new DiagnosticOptionsOrProviderOptions(token.ToObject<ProviderOptions>()!);
+                    }
+                default:
+                    throw new JsonSerializationException();
+
+            }
+        }
+
+        private Documentation? ToDocumentation(JToken token)
+        {
+            return token.Type switch
+            {
+                JTokenType.Null => null,
+                JTokenType.String => new Documentation(token.ToObject<string>()!),
+                JTokenType.Object => new Documentation(token.ToObject<MarkupContent>()!),
                 _ => throw new JsonSerializationException(),
             };
         }
@@ -200,6 +165,17 @@ namespace LanguageServer.Infrastructure.JsonDotNet
                 default: throw new JsonSerializationException();
 
             }
+        }
+
+        private FoldingRangeProviderOptionsOrBoolean? ToFoldingRangeProviderOptionsOrBoolean(JToken token)
+        {
+            return token.Type switch
+            {
+                JTokenType.Null => null,
+                JTokenType.Boolean => new FoldingRangeProviderOptionsOrBoolean(token.ToObject<bool>()),
+                JTokenType.Object => new FoldingRangeProviderOptionsOrBoolean(token.ToObject<FoldingRangeProviderOptions>()!),
+                _ => throw new JsonSerializationException(),
+            };
         }
 
         private HoverContents? ToHoverContents(JToken token)
@@ -224,6 +200,39 @@ namespace LanguageServer.Infrastructure.JsonDotNet
             }
         }
 
+        private LocationSingleOrArray? ToLocationSingleOrArray(JToken token)
+        {
+            return token.Type switch
+            {
+                JTokenType.Null => null,
+                JTokenType.Object => new LocationSingleOrArray(token.ToObject<Location>()!),
+                JTokenType.Array => new LocationSingleOrArray(token.ToObject<Location[]>()!),
+                _ => throw new JsonSerializationException(),
+            };
+        }
+
+        private NumberOrString? ToNumberOrString(JToken token)
+        {
+            return token.Type switch
+            {
+                JTokenType.Null => null,
+                JTokenType.Integer => new NumberOrString(token.ToObject<long>()),
+                JTokenType.String => new NumberOrString(token.ToObject<string>()!),
+                _ => throw new JsonSerializationException(),
+            };
+        }
+
+        private ProviderOptionsOrBoolean? ToProviderOptionsOrBoolean(JToken token)
+        {
+            return token.Type switch
+            {
+                JTokenType.Null => null,
+                JTokenType.Boolean => new ProviderOptionsOrBoolean(token.ToObject<bool>()),
+                JTokenType.Object => new ProviderOptionsOrBoolean(token.ToObject<ProviderOptions>()!),
+                _ => throw new JsonSerializationException(),
+            };
+        }
+
         private TextDocumentContentChangeEvent? ToTextDocumentContentChangeEvent(JToken token)
         {
             switch (token.Type)
@@ -236,6 +245,18 @@ namespace LanguageServer.Infrastructure.JsonDotNet
                 default: throw new JsonSerializationException();
             }
         }
+
+        private TextDocumentSync? ToTextDocumentSync(JToken token)
+        {
+            return token.Type switch
+            {
+                JTokenType.Null => null,
+                JTokenType.Integer => new TextDocumentSync(token.ToObject<TextDocumentSyncKind>()),
+                JTokenType.Object => new TextDocumentSync(token.ToObject<TextDocumentSyncOptions>()!),
+                _ => throw new JsonSerializationException(),
+            };
+        }
+
         #endregion
 
         /// <summary>
