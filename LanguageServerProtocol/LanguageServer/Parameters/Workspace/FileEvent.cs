@@ -1,8 +1,8 @@
 ﻿namespace LanguageServer.Parameters.Workspace
 {
-    public class FileEvent(FileEvent uri, FileChangeType type)
+    public class FileEvent(DocumentUri uri, FileChangeType type)
     {
-        public FileEvent uri = uri;
+        public DocumentUri uri = uri;
         public FileChangeType type = type;
     }
 }

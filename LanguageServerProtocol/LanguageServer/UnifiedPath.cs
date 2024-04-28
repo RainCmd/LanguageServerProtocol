@@ -10,8 +10,12 @@ namespace LanguageServer
         public readonly string path;
         public UnifiedPath(string path)
         {
-            var index = path.IndexOf(':');
-            if (index > 0) path = string.Concat(path[..index].ToLower(), path.AsSpan(index));
+            if (path.Contains("%3A")) path = new Uri(path.Replace("%3A", ":")).LocalPath.TrimStart('/');
+            else
+            {
+                var index = path.IndexOf(':');
+                if (index > 0) path = string.Concat(path[..index].ToLower(), path.AsSpan(index));
+            }
             this.path = regex.Replace(path.Replace("\\", "/"), "/");
         }
         public UnifiedPath(Uri uri)

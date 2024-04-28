@@ -10,6 +10,6 @@
         /// The text document.
         /// </summary>
         /// <seealso>Spec 3.10.0</seealso>
-        public required TextDocumentIdentifier textDocument = textDocument;
+        public TextDocumentIdentifier textDocument = textDocument;
     }
 }

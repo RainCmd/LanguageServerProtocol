@@ -308,14 +308,12 @@ namespace LanguageServer
         }
         #endregion
 
-        [SuppressMessage("Trimming", "IL2067:Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The parameter of method does not have matching annotations.", Justification = "<挂起>")]
-        [SuppressMessage("Trimming", "IL2072:Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.", Justification = "<挂起>")]
         internal static ResponseMessageBase CreateErrorResponse(Type responseType, NumberOrString id, string errorMessage)
         {
             var res = Activator.CreateInstance(responseType) as ResponseMessageBase;
             res!.id = id;
-            var prop = responseType.GetRuntimeProperty("error");
-            var err = Activator.CreateInstance(prop!.PropertyType) as ResponseError;
+            var prop = responseType.GetRuntimeField("error");
+            var err = Activator.CreateInstance(prop!.FieldType) as ResponseError;
             err!.code = ErrorCodes.InternalError;
             err.message = errorMessage;
             prop.SetValue(res, err);
