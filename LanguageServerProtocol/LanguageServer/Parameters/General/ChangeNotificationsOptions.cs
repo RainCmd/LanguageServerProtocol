@@ -5,6 +5,9 @@ namespace LanguageServer.Parameters.General
     /// <summary>
     /// For <c>initialize</c>
     /// </summary>
+    /// <remarks>
+    /// <see cref="string"/> | <see cref="bool"/>
+    /// </remarks>
     /// <seealso>Spec 3.6.0</seealso>
     public class ChangeNotificationsOptions : Either
     {

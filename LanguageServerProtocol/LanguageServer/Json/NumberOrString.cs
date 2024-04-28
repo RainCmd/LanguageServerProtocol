@@ -6,13 +6,13 @@
 
         public NumberOrString(string value) : base(value, typeof(string)) { }
 
-        public bool IsLeft => Type == typeof(long);
+        public bool IsLeft => type == typeof(long);
 
-        public bool IsRight => Type == typeof(string);
+        public bool IsRight => type == typeof(string);
 
-        public long Left => GetValue<long>();
+        public long Left => (long)value;
 
-        public string Right => GetValue<string>();
+        public string Right => (string)value;
 
         public override int GetHashCode() => IsLeft ? Left.GetHashCode() : IsRight ? Right.GetHashCode() : 0;
 

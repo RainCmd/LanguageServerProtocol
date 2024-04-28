@@ -114,6 +114,6 @@
         /// Converts this <c>Color</c> structure to a human-readable string.
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => RGBA;
+        public override readonly string ToString() => RGBA;
     }
 }

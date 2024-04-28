@@ -107,8 +107,11 @@
         public DocumentLinkOptions? documentLinkProvider;
 
         /// <summary>
-        /// The server provides color provider support.
+        /// 服务器提供颜色提供程序支持。
         /// </summary>
+        /// <remarks>
+        /// 在代码中插入带颜色的小方块
+        /// </remarks>
         /// <seealso>Spec 3.8.0</seealso>
         public ColorProviderOptionsOrBoolean? colorProvider;
 

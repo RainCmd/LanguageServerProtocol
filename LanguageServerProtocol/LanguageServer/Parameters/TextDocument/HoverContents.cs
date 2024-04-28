@@ -62,40 +62,40 @@ namespace LanguageServer.Parameters.TextDocument
         /// <summary>
         /// Returns true if its underlying value is a <see cref="string"/>.
         /// </summary>
-        public bool IsString => Type == typeof(string);
+        public bool IsString => type == typeof(string);
 
         /// <summary>
         /// Returns true if its underlying value is a <see cref="T:System.String[]"/>.
         /// </summary>
-        public bool IsStringArray => Type == typeof(string[]);
+        public bool IsStringArray => type == typeof(string[]);
 
         /// <summary>
         /// Returns true if its underlying value is a <see cref="MarkupContent"/>.
         /// </summary>
         /// <seealso>Spec 3.3.0</seealso>
-        public bool IsMarkupContent => Type == typeof(MarkupContent);
-        public bool IsMarkupContentArray => Type == typeof(MarkupContent[]);
+        public bool IsMarkupContent => type == typeof(MarkupContent);
+        public bool IsMarkupContentArray => type == typeof(MarkupContent[]);
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="string"/>.
         /// </summary>
-        public string String => GetValue<string>();
+        public string String => (string)value;
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="T:System.String[]"/>.
         /// </summary>
-        public string[] StringArray => GetValue<string[]>();
+        public string[] StringArray => (string[])value;
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="MarkupContent"/>.
         /// </summary>
         /// <seealso>Spec 3.3.0</seealso>
-        public MarkupContent MarkupContent => GetValue<MarkupContent>();
+        public MarkupContent MarkupContent => (MarkupContent)value;
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="MarkupContent[]"/>.
         /// </summary>
         /// <seealso>Spec 3.3.0</seealso>
-        public MarkupContent[] MarkupContentArray => GetValue<MarkupContent[]>();
+        public MarkupContent[] MarkupContentArray => (MarkupContent[])value;
     }
 }

@@ -3,7 +3,8 @@
 namespace LanguageServer.Parameters.General
 {
     /// <summary>
-    /// For <c>initialize</c>
+    /// For <c>initialize</c><br/>
+    /// <see cref="General.ColorProviderOptions"/> | <see cref="bool"/>
     /// </summary>
     /// <remarks>
     /// The original spec describes the union type of
@@ -48,24 +49,24 @@ namespace LanguageServer.Parameters.General
         /// Returns true if its underlying value is a <see cref="ColorProviderOptions"/>.
         /// </summary>
         /// <seealso>Spec 3.8.0</seealso>
-        public bool IsColorProviderOptions => Type == typeof(ColorProviderOptions);
+        public bool IsColorProviderOptions => type == typeof(ColorProviderOptions);
 
         /// <summary>
         /// Returns true if its underlying value is a <see cref="bool"/>.
         /// </summary>
         /// <seealso>Spec 3.8.0</seealso>
-        public bool IsBoolean => Type == typeof(bool);
+        public bool IsBoolean => type == typeof(bool);
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="ColorProviderOptions"/>.
         /// </summary>
         /// <seealso>Spec 3.8.0</seealso>
-        public ColorProviderOptions ColorProviderOptions => GetValue<ColorProviderOptions>();
+        public ColorProviderOptions ColorProviderOptions => (ColorProviderOptions)value;
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="bool"/>.
         /// </summary>
         /// <seealso>Spec 3.8.0</seealso>
-        public bool Boolean => GetValue<bool>();
+        public bool Boolean => (bool)value;
     }
 }

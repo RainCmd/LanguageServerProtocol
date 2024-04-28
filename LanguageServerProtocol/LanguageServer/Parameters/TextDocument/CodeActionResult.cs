@@ -5,6 +5,9 @@ namespace LanguageServer.Parameters.TextDocument
     /// <summary>
     /// For <c>textDocument/codeAction</c>
     /// </summary>
+    /// <remarks>
+    /// <see cref="Command"/>[] | <see cref="CodeAction"/>[]
+    /// </remarks>
     /// <seealso>Spec 3.8.0</seealso>
     public class CodeActionResult : Either
     {
@@ -42,24 +45,24 @@ namespace LanguageServer.Parameters.TextDocument
         /// Returns true if its underlying value is a <see cref="T:LanguageServer.Parameters.TextDocument.Command[]"/>.
         /// </summary>
         /// <seealso>Spec 3.8.0</seealso>
-        public bool IsCommandArray => Type == typeof(Command[]);
+        public bool IsCommandArray => type == typeof(Command[]);
 
         /// <summary>
         /// Returns true if its underlying value is a <see cref="T:LanguageServer.Parameters.TextDocument.CodeAction[]"/>.
         /// </summary>
         /// <seealso>Spec 3.8.0</seealso>
-        public bool IsCodeActionArray => Type == typeof(CodeAction[]);
+        public bool IsCodeActionArray => type == typeof(CodeAction[]);
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="T:LanguageServer.Parameters.TextDocument.Command[]"/>.
         /// </summary>
         /// <seealso>Spec 3.8.0</seealso>
-        public Command[] CommandArray => GetValue<Command[]>();
+        public Command[] CommandArray => (Command[])value;
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="T:LanguageServer.Parameters.TextDocument.CodeAction[]"/>.
         /// </summary>
         /// <seealso>Spec 3.8.0</seealso>
-        public CodeAction[] CodeActionArray => GetValue<CodeAction[]>();
+        public CodeAction[] CodeActionArray => (CodeAction[])value;
     }
 }

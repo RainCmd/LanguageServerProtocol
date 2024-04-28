@@ -67,6 +67,11 @@ namespace LanguageServer
         }
 
         // dynamicRegistration?: boolean;
+        /// <summary>
+        /// 从客户机发送到服务器的通知，以表示配置设置的更改。
+        /// </summary>
+        /// <param name="param"></param>
+        /// <exception cref="NotImplementedException"></exception>
         [JsonRpcMethod("workspace/didChangeConfiguration")]
         protected virtual void DidChangeConfiguration(DidChangeConfigurationParams param)
         {
@@ -74,6 +79,30 @@ namespace LanguageServer
         }
 
         // dynamicRegistration?: boolean;
+        /// <summary>
+        /// 当客户端检测到语言客户端监视的文件和文件夹发生变化时，监视文件通知从客户端发送到服务器
+        /// (注意，虽然名称表明只发送文件事件，但它是关于文件系统事件的，其中也包括文件夹)。
+        /// 建议服务器使用注册机制注册这些文件系统事件。在以前的实现中，客户端推送文件事件而不需要服务器主动请求。
+        /// </summary>
+        /// <remarks>
+        /// 允许服务器运行自己的文件系统监视机制，而不依赖于客户端提供文件系统事件。但是，由于以下原因，不建议这样做:
+        /// <list type="bullet">
+        /// <item>
+        /// 根据我们的经验，在磁盘上正确地监视文件系统是具有挑战性的，特别是在需要跨多个操作系统支持的情况下。
+        /// </item>
+        /// <item>
+        /// 文件系统监视不是免费的，特别是如果实现使用某种轮询并在内存中保存文件系统树来比较时间戳(例如一些节点模块所做的)。
+        /// </item>
+        /// <item>
+        /// 一个客户端通常启动多个服务器。如果每个服务器都运行自己的文件系统监视，这可能会成为CPU或内存问题。
+        /// </item>
+        /// <item>
+        /// 一般来说，服务器实现比客户端实现要多。所以这个问题最好在客户端解决。
+        /// </item>
+        /// </list>
+        /// </remarks>
+        /// <param name="param"></param>
+        /// <exception cref="NotImplementedException"></exception>
         [JsonRpcMethod("workspace/didChangeWatchedFiles")]
         protected virtual void DidChangeWatchedFiles(DidChangeWatchedFilesParams param)
         {
@@ -82,6 +111,17 @@ namespace LanguageServer
 
         // dynamicRegistration?: boolean;
         // Registration Options: void
+        /// <summary>
+        /// 工作空间符号请求从客户端发送到服务器，以列出与查询字符串匹配的项目范围的符号。
+        /// 自3.17.0以来，服务器还可以为workspacessymbol /resolve请求提供处理程序。
+        /// 这允许服务器返回没有工作空间/符号请求范围的工作空间符号。
+        /// 然后，客户端需要在必要时使用workspacessymbol /resolve请求解析该范围。
+        /// 只有当客户端通过workspace.symbol. resolvessupport功能宣布支持该模型时，服务器才能使用该新模型。
+        /// </summary>
+        /// <param name="param"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         [JsonRpcMethod("workspace/symbol")]
         protected virtual Result<SymbolInformation[], ResponseError> Symbol(WorkspaceSymbolParams param, CancellationToken token)
         {
@@ -90,6 +130,14 @@ namespace LanguageServer
 
         // dynamicRegistration?: boolean;
         // Registration Options: ExecuteCommandRegistrationOptions
+        /// <summary>
+        /// workspace/executeCommand请求从客户机发送到服务器，以触发服务器上的命令执行。
+        /// 在大多数情况下，服务器创建一个WorkspaceEdit结构，并使用从服务器发送到客户端的请求workspace/applyEdit将更改应用到工作空间。
+        /// </summary>
+        /// <param name="param"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         [JsonRpcMethod("workspace/executeCommand")]
         protected virtual Result<dynamic, ResponseError> ExecuteCommand(ExecuteCommandParams param, CancellationToken token)
         {
@@ -101,6 +149,21 @@ namespace LanguageServer
         #region TextDocument
 
         // Registration Options: TextDocumentRegistrationOptions
+        /// <summary>
+        /// 文档打开通知从客户机发送到服务器，以表示新打开的文本文档。
+        /// 文档的内容现在由客户端管理，服务器不能尝试使用文档的Uri读取文档的内容。
+        /// 在这个意义上，开放意味着它是由客户端管理的。这并不一定意味着它的内容在编辑器中显示。
+        /// 在未发送相应的关闭通知之前，不得发送多次打开通知。这
+        /// 意味着打开和关闭通知必须平衡，并且特定textDocument的最大打开计数为1。
+        /// 请注意，服务器完成请求的能力与文本文档是打开还是关闭无关。
+        /// </summary>
+        /// <remarks>
+        /// DidOpenTextDocumentParams包含与文档相关联的语言id。如果文档的语言id改变了，
+        /// 客户端需要发送一个textDocument/didClose给服务器，如果服务器也处理新的语言id，
+        /// 那么接着发送一个带有新语言id的textDocument/didOpen给服务器。
+        /// </remarks>
+        /// <param name="param"></param>
+        /// <exception cref="NotImplementedException"></exception>
         [JsonRpcMethod("textDocument/didOpen")]
         protected virtual void DidOpenTextDocument(DidOpenTextDocumentParams param)
         {
@@ -108,6 +171,13 @@ namespace LanguageServer
         }
 
         // Registration Options: TextDocumentChangeRegistrationOptions
+        /// <summary>
+        /// 文档更改通知从客户机发送到服务器，以表示对文本文档的更改。
+        /// 在客户端可以更改文本文档之前，它必须使用textDocument/didOpen通知声明其内容的所有权。
+        /// 在2.0中，参数的形状已经改变，以包含适当的版本号。
+        /// </summary>
+        /// <param name="param"></param>
+        /// <exception cref="NotImplementedException"></exception>
         [JsonRpcMethod("textDocument/didChange")]
         protected virtual void DidChangeTextDocument(DidChangeTextDocumentParams param)
         {
@@ -115,6 +185,13 @@ namespace LanguageServer
         }
 
         // Registration Options: TextDocumentRegistrationOptions
+        /// <summary>
+        /// 文档将保存通知在文档实际保存之前从客户机发送到服务器。
+        /// 如果服务器已经注册了打开/关闭事件，客户端应该确保文档在发送willSave通知之前是打开的，
+        /// 因为客户端不能在没有所有权转移的情况下更改文件的内容。
+        /// </summary>
+        /// <param name="param"></param>
+        /// <exception cref="NotImplementedException"></exception>
         [JsonRpcMethod("textDocument/willSave")]
         protected virtual void WillSaveTextDocument(WillSaveTextDocumentParams param)
         {
@@ -122,6 +199,16 @@ namespace LanguageServer
         }
 
         // Registration Options: TextDocumentRegistrationOptions
+        /// <summary>
+        /// 文档将保存请求在文档实际保存之前从客户机发送到服务器。请求可以返回一个TextEdits数组，
+        /// 它将在保存文本文档之前应用于文本文档。请注意，如果计算文本编辑花费的时间太长，
+        /// 或者服务器在此请求上不断失败，则客户端可能会丢失结果。这样做是为了保持保存的快速和可靠。
+        /// 如果服务器已经注册了打开/关闭事件，客户端应该确保文档在发送willSaveWaitUntil通知之前是打开的，
+        /// 因为客户端不能在没有所有权转移的情况下更改文件的内容。
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         [JsonRpcMethod("textDocument/willSaveWaitUntil")]
         protected virtual Result<TextEdit[], ResponseError> WillSaveWaitUntilTextDocument(WillSaveTextDocumentParams param)
         {
@@ -129,6 +216,11 @@ namespace LanguageServer
         }
 
         // Registration Options: TextDocumentSaveRegistrationOptions
+        /// <summary>
+        /// 文档保存通知在文档保存到客户端时从客户端发送到服务器。
+        /// </summary>
+        /// <param name="param"></param>
+        /// <exception cref="NotImplementedException"></exception>
         [JsonRpcMethod("textDocument/didSave")]
         protected virtual void DidSaveTextDocument(DidSaveTextDocumentParams param)
         {
@@ -136,6 +228,15 @@ namespace LanguageServer
         }
 
         // Registration Options: TextDocumentRegistrationOptions
+        /// <summary>
+        /// 当文档在客户机中关闭时，文档关闭通知从客户机发送到服务器。
+        /// 文档的master现在存在于文档的Uri指向的地方(例如，如果文档的Uri是一个文件Uri，
+        /// 那么master现在存在于磁盘上)。与打开通知一样，关闭通知是关于管理文档内容的。
+        /// 收到关闭通知并不意味着文档以前在编辑器中打开过。关闭通知需要发送先前打开的通知。
+        /// 请注意，服务器完成请求的能力与文本文档是打开还是关闭无关。
+        /// </summary>
+        /// <param name="param"></param>
+        /// <exception cref="NotImplementedException"></exception>
         [JsonRpcMethod("textDocument/didClose")]
         protected virtual void DidCloseTextDocument(DidCloseTextDocumentParams param)
         {
@@ -165,7 +266,7 @@ namespace LanguageServer
         /// </remarks>
         /// <param name="param"></param>
         /// <returns></returns>
-        /// <seealso cref="LanguageServer.Parameters.General.TextDocumentClientCapabilities"/>
+        /// <seealso cref="TextDocumentClientCapabilities"/>
         /// <seealso>Spec 3.3.0</seealso>
         [JsonRpcMethod("textDocument/completion")]
         protected virtual Result<CompletionResult, ResponseError> Completion(CompletionParams param, CancellationToken token)
@@ -205,6 +306,16 @@ namespace LanguageServer
 
         // dynamicRegistration?: boolean;
         // Registration Options: TextDocumentRegistrationOptions
+        /// <summary>
+        /// 文档突出显示请求从客户机发送到服务器，以解析给定文本文档位置的文档突出显示。
+        /// 对于编程语言，这通常突出显示对该文件范围内的符号的所有引用。
+        /// 但是，我们保留了“textDocument/documentHighlight”和“textDocument/references”单独的请求，
+        /// 因为第一个被允许更加模糊。符号匹配通常有一个“读”或“写”的DocumentHighlightKind，而模糊或文本匹配使用“文本”作为类型。
+        /// </summary>
+        /// <param name="param"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         [JsonRpcMethod("textDocument/documentHighlight")]
         protected virtual Result<DocumentHighlight[], ResponseError> DocumentHighlight(TextDocumentPositionParams param, CancellationToken token)
         {
@@ -307,7 +418,7 @@ namespace LanguageServer
         /// </remarks>
         /// <param name="param"></param>
         /// <returns></returns>
-        /// <seealso cref="LanguageServer.Parameters.General.TextDocumentClientCapabilities"/>
+        /// <seealso cref="TextDocumentClientCapabilities"/>
         [JsonRpcMethod("textDocument/definition")]
         protected virtual Result<LocationSingleOrArray, ResponseError> GotoDefinition(TextDocumentPositionParams param, CancellationToken token)
         {
@@ -323,7 +434,7 @@ namespace LanguageServer
         /// </remarks>
         /// <param name="param"></param>
         /// <returns></returns>
-        /// <seealso cref="LanguageServer.Parameters.General.TextDocumentClientCapabilities"/>
+        /// <seealso cref="TextDocumentClientCapabilities"/>
         /// <seealso>Spec 3.6.0</seealso>
         [JsonRpcMethod("textDocument/typeDefinition")]
         protected virtual Result<LocationSingleOrArray, ResponseError> GotoTypeDefinition(TextDocumentPositionParams param, CancellationToken token)
@@ -340,7 +451,7 @@ namespace LanguageServer
         /// </remarks>
         /// <param name="param"></param>
         /// <returns></returns>
-        /// <seealso cref="LanguageServer.Parameters.General.TextDocumentClientCapabilities"/>
+        /// <seealso cref="TextDocumentClientCapabilities"/>
         /// <seealso>Spec 3.6.0</seealso>
         [JsonRpcMethod("textDocument/implementation")]
         protected virtual Result<LocationSingleOrArray, ResponseError> GotoImplementation(TextDocumentPositionParams param, CancellationToken token)
@@ -384,7 +495,7 @@ namespace LanguageServer
         /// </remarks>
         /// <param name="param"></param>
         /// <returns></returns>
-        /// <seealso cref="LanguageServer.Parameters.General.TextDocumentClientCapabilities"/>
+        /// <seealso cref="TextDocumentClientCapabilities"/>
         /// <seealso>Spec 3.8.0</seealso>
         [JsonRpcMethod("textDocument/codeAction")]
         protected virtual Result<CodeActionResult, ResponseError> CodeAction(CodeActionParams param, CancellationToken token)

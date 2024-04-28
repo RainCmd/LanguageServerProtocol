@@ -43,21 +43,21 @@ namespace LanguageServer.Parameters.General
         /// <summary>
         /// Returns true if its underlying value is a <see cref="FoldingRangeProviderOptions"/>.
         /// </summary>
-        public bool IsFoldingRangeProviderOptions => Type == typeof(FoldingRangeProviderOptions);
+        public bool IsFoldingRangeProviderOptions => type == typeof(FoldingRangeProviderOptions);
 
         /// <summary>
         /// Returns true if its underlying value is a <see cref="bool"/>.
         /// </summary>
-        public bool IsBoolean => Type == typeof(bool);
+        public bool IsBoolean => type == typeof(bool);
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="FoldingRangeProviderOptions"/>.
         /// </summary>
-        public FoldingRangeProviderOptions FoldingRangeProviderOptions => GetValue<FoldingRangeProviderOptions>();
+        public FoldingRangeProviderOptions FoldingRangeProviderOptions => (FoldingRangeProviderOptions)value;
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="bool"/>.
         /// </summary>
-        public bool Boolean => GetValue<bool>();
+        public bool Boolean => (bool)value;
     }
 }

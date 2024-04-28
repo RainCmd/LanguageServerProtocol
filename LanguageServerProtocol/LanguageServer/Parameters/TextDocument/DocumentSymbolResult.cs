@@ -42,24 +42,24 @@ namespace LanguageServer.Parameters.TextDocument
         /// Returns true if its underlying value is a <see cref="T:LanguageServer.Parameters.TextDocument.DocumentSymbol[]"/>.
         /// </summary>
         /// <seealso>Spec 3.10.0</seealso>
-        public bool IsDocumentSymbolArray => Type == typeof(DocumentSymbol[]);
+        public bool IsDocumentSymbolArray => type == typeof(DocumentSymbol[]);
 
         /// <summary>
         /// Returns true if its underlying value is a <see cref="T:LanguageServer.Parameters.TextDocument.SymbolInformation[]"/>.
         /// </summary>
         /// <seealso>Spec 3.10.0</seealso>
-        public bool IsSymbolInformationArray => Type == typeof(SymbolInformation[]);
+        public bool IsSymbolInformationArray => type == typeof(SymbolInformation[]);
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="T:LanguageServer.Parameters.TextDocument.DocumentSymbol[]"/>.
         /// </summary>
         /// <seealso>Spec 3.10.0</seealso>
-        public DocumentSymbol[] DocumentSymbolArray => GetValue<DocumentSymbol[]>();
+        public DocumentSymbol[] DocumentSymbolArray => (DocumentSymbol[])value;
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="T:LanguageServer.Parameters.TextDocument.SymbolInformation[]"/>.
         /// </summary>
         /// <seealso>Spec 3.10.0</seealso>
-        public SymbolInformation[] SymbolImformationArray => GetValue<SymbolInformation[]>();
+        public SymbolInformation[] SymbolImformationArray => (SymbolInformation[])value;
     }
 }

@@ -9,10 +9,10 @@ namespace LanguageServer.Parameters.TextDocument
     {
         public static implicit operator TextDocumentContentChangeEvent(TextDocumentContentChange change) => new(change);
         public static implicit operator TextDocumentContentChangeEvent(TextDocumentContentWhole whole) => new(whole);
-        public bool IsChange => Type == typeof(TextDocumentContentChange);
-        public bool IsWhole => Type == typeof(TextDocumentContentWhole);
-        public TextDocumentContentChange Change => GetValue<TextDocumentContentChange>();
-        public TextDocumentContentWhole Whole => GetValue<TextDocumentContentWhole>();
+        public bool IsChange => type == typeof(TextDocumentContentChange);
+        public bool IsWhole => type == typeof(TextDocumentContentWhole);
+        public TextDocumentContentChange Change => (TextDocumentContentChange)value;
+        public TextDocumentContentWhole Whole => (TextDocumentContentWhole)value;
         public TextDocumentContentChangeEvent(TextDocumentContentChange value) : base(value, typeof(TextDocumentContentChange)) { }
         public TextDocumentContentChangeEvent(TextDocumentContentWhole value) : base(value, typeof(TextDocumentContentWhole)) { }
     }

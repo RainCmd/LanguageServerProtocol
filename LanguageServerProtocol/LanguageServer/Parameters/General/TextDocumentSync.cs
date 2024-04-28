@@ -33,21 +33,21 @@ namespace LanguageServer.Parameters.General
         /// <summary>
         /// Returns true if its underlying value is a <see cref="TextDocumentSyncKind"/>.
         /// </summary>
-        public bool IsTextDocumentSyncKind => Type == typeof(TextDocumentSyncKind);
+        public bool IsTextDocumentSyncKind => type == typeof(TextDocumentSyncKind);
 
         /// <summary>
         /// Returns true if its underlying value is a <see cref="TextDocumentSyncOptions"/>.
         /// </summary>
-        public bool IsTextDocumentSyncOptions => Type == typeof(TextDocumentSyncOptions);
+        public bool IsTextDocumentSyncOptions => type == typeof(TextDocumentSyncOptions);
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="TextDocumentSyncKind"/>.
         /// </summary>
-        public TextDocumentSyncKind TextDocumentSyncKind => GetValue<TextDocumentSyncKind>();
+        public TextDocumentSyncKind TextDocumentSyncKind => (TextDocumentSyncKind)value;
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="TextDocumentSyncOptions"/>.
         /// </summary>
-        public TextDocumentSyncOptions TextDocumentSyncOptions => GetValue<TextDocumentSyncOptions>();
+        public TextDocumentSyncOptions TextDocumentSyncOptions => (TextDocumentSyncOptions)value;
     }
 }

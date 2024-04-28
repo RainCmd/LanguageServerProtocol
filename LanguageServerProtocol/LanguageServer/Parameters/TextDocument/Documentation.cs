@@ -9,6 +9,7 @@ namespace LanguageServer.Parameters.TextDocument
     /// </summary>
     /// <remarks>
     /// 一个人类可读的字符串，表示文档注释。
+    /// <see cref="string"/> | <see cref="TextDocument.MarkupContent"/>
     /// </remarks>
     /// <seealso>Spec 3.3.0</seealso>
     public class Documentation : Either
@@ -45,24 +46,24 @@ namespace LanguageServer.Parameters.TextDocument
         /// Returns true if its underlying value is a <see cref="string"/>.
         /// </summary>
         /// <seealso>Spec 3.3.0</seealso>
-        public bool IsString => Type == typeof(string);
+        public bool IsString => type == typeof(string);
 
         /// <summary>
         /// Returns true if its underlying value is a <see cref="MarkupContent"/>.
         /// </summary>
         /// <seealso>Spec 3.3.0</seealso>
-        public bool IsMarkupContent => Type == typeof(MarkupContent);
+        public bool IsMarkupContent => type == typeof(MarkupContent);
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="string"/>.
         /// </summary>
         /// <seealso>Spec 3.3.0</seealso>
-        public string String => GetValue<string>();
+        public string String => (string)value;
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="MarkupContent"/>.
         /// </summary>
         /// <seealso>Spec 3.3.0</seealso>
-        public MarkupContent MarkupContent => GetValue<MarkupContent>();
+        public MarkupContent MarkupContent => (MarkupContent)value;
     }
 }

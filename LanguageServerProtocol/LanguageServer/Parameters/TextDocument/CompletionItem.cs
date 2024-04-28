@@ -12,9 +12,24 @@
         public string label = label;
 
         /// <summary>
+        /// 标签的其他详细信息
+        /// </summary>
+        public CompletionItemLabelDetails? labelDetails;
+
+        /// <summary>
         /// 此完成项的类型。
         /// </summary>
         public CompletionItemKind? kind;
+
+        /// <summary>
+        /// 此完成项的标记。
+        /// </summary>
+        /// <remarks>
+        /// 完成项标记是额外的注释，用于调整完成项的呈现。
+        /// 
+        /// 似乎没有什么用 https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#completionItemTag
+        /// </remarks>
+        //public CompletionItemTag[]? tags;
 
         /// <summary>
         /// 一个人类可读的字符串，包含关于该项的附加信息，如类型或符号信息。
@@ -68,7 +83,14 @@
         /// <summary>
         /// 选择此补全时应用于文档的编辑。
         /// </summary>
-        public TextEdit? textEdit;
+        public TextEditOrInsertReplaceEdit? textEdit;
+
+        /// <summary>
+        /// 如果完成项是CompletionList的一部分，则使用的编辑文本，而CompletionList为文本编辑范围定义了一个默认的项。
+        /// 客户端只有在使用功能' completionList.itemDefaults '选择完成列表项默认值时才会尊重此属性。
+        /// 如果未提供且提供了列表的默认范围，则将label属性用作文本。
+        /// </summary>
+        public string? textEditText;
 
         /// <summary>
         /// 选择此补全时应用的附加文本编辑的可选数组。

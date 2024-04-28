@@ -1,9 +1,12 @@
 ﻿namespace LanguageServer.Parameters.TextDocument
 {
-    public class DidSaveTextDocumentParams
+    public class DidSaveTextDocumentParams(TextDocumentIdentifier textDocument, string text)
     {
-        public TextDocumentIdentifier? textDocument;
+        public TextDocumentIdentifier textDocument = textDocument;
 
-        public string? text;
+        /// <summary>
+        /// 保存时可选的内容。取决于请求保存通知时的includeText值。
+        /// </summary>
+        public string text = text;
     }
 }

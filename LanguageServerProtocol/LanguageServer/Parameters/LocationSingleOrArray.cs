@@ -12,12 +12,12 @@ namespace LanguageServer.Parameters
 
         public LocationSingleOrArray(Location[] value) : base(value, typeof(Location[])) { }
 
-        public bool IsSingle => Type == typeof(Location);
+        public bool IsSingle => type == typeof(Location);
 
-        public bool IsArray => Type == typeof(Location[]);
+        public bool IsArray => type == typeof(Location[]);
 
-        public Location Single => GetValue<Location>();
+        public Location Single => (Location)value;
 
-        public Location[] Array => GetValue<Location[]>();
+        public Location[] Array => (Location[])value;
     }
 }

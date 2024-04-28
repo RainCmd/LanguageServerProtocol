@@ -36,6 +36,7 @@ namespace LanguageServer.Infrastructure.JsonDotNet
                 [typeof(ProviderOptionsOrBoolean)] = ToProviderOptionsOrBoolean,
                 [typeof(TextDocumentContentChangeEvent)] = ToTextDocumentContentChangeEvent,
                 [typeof(TextDocumentSync)] = ToTextDocumentSync,
+                [typeof(TextEditOrInsertReplaceEdit)] = ToTextEditOrInsertReplaceEdit,
             };
         }
 
@@ -240,8 +241,8 @@ namespace LanguageServer.Infrastructure.JsonDotNet
                 case JTokenType.Null: return null;
                 case JTokenType.Object:
                     var obj = (JObject)token;
-                    if (obj.Count == 1) return obj.ToObject<TextDocumentContentWhole>()!;
-                    else return obj.ToObject<TextDocumentContentChange>()!;
+                    if (obj.ContainsKey("range")) return obj.ToObject<TextDocumentContentChange>()!;
+                    else return obj.ToObject<TextDocumentContentWhole>()!;
                 default: throw new JsonSerializationException();
             }
         }
@@ -257,6 +258,19 @@ namespace LanguageServer.Infrastructure.JsonDotNet
             };
         }
 
+        private TextEditOrInsertReplaceEdit? ToTextEditOrInsertReplaceEdit(JToken token)
+        {
+            switch (token.Type)
+            {
+                case JTokenType.Null: return null;
+                case JTokenType.Object:
+                    var obj = (JObject)token;
+                    if (obj.ContainsKey("range")) return obj.ToObject<TextEdit>()!;
+                    else return obj.ToObject<InsertReplaceEdit>()!;
+                default: throw new JsonSerializationException();
+            }
+        }
+
         #endregion
 
         /// <summary>
@@ -267,7 +281,7 @@ namespace LanguageServer.Infrastructure.JsonDotNet
         /// <param name="serializer"></param>
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
-            serializer.Serialize(writer, (value as Either)?.Value);
+            serializer.Serialize(writer, (value as Either)?.value);
         }
     }
 }

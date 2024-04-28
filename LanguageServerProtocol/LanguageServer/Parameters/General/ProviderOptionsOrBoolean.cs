@@ -45,24 +45,24 @@ namespace LanguageServer.Parameters.General
         /// Returns true if its underlying value is a <see cref="ProviderOptions"/>.
         /// </summary>
         /// <seealso>Spec 3.6.0</seealso>
-        public bool IsProviderOptions => Type == typeof(ProviderOptions);
+        public bool IsProviderOptions => type == typeof(ProviderOptions);
 
         /// <summary>
         /// Returns true if its underlying value is a <see cref="bool"/>.
         /// </summary>
         /// <seealso>Spec 3.6.0</seealso>
-        public bool IsBoolean => Type == typeof(bool);
+        public bool IsBoolean => type == typeof(bool);
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="ProviderOptions"/>.
         /// </summary>
         /// <seealso>Spec 3.6.0</seealso>
-        public ProviderOptions ProviderOptions => GetValue<ProviderOptions>();
+        public ProviderOptions ProviderOptions => (ProviderOptions)value;
 
         /// <summary>
         /// Gets the value of the current object if its underlying value is a <see cref="bool"/>.
         /// </summary>
         /// <seealso>Spec 3.6.0</seealso>
-        public bool Boolean => GetValue<bool>();
+        public bool Boolean => (bool)value;
     }
 }

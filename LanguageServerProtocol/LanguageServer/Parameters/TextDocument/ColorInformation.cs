@@ -4,18 +4,18 @@
     /// For <c>textDocument/documentColor</c>
     /// </summary>
     /// <seealso>Spec 3.6.0</seealso>
-    public class ColorInformation
+    public class ColorInformation(Range range, Color color)
     {
         /// <summary>
-        /// The range in the document where this color appears.
+        /// 该颜色在文档中显示的范围。
         /// </summary>
         /// <seealso>Spec 3.6.0</seealso>
-        public Range? range;
+        public Range range = range;
 
         /// <summary>
-        /// The actual color value for this color range.
+        ///此颜色范围的实际颜色值。
         /// </summary>
         /// <seealso>Spec 3.6.0</seealso>
-        public Color? color;
+        public Color color = color;
     }
 }

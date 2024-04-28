@@ -3,10 +3,10 @@
     /// <summary>
     /// For <c>textDocument/willSave</c>
     /// </summary>
-    public class WillSaveTextDocumentParams
+    public class WillSaveTextDocumentParams(TextDocumentIdentifier textDocument, TextDocumentSaveReason reason)
     {
-        public TextDocumentIdentifier? textDocument;
+        public TextDocumentIdentifier textDocument = textDocument;
 
-        public TextDocumentSaveReason? reason;
+        public TextDocumentSaveReason reason = reason;
     }
 }
