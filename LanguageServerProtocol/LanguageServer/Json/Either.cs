@@ -28,6 +28,10 @@
     {
         public object value = value;
         public Type type = type;
+        public override string? ToString()
+        {
+            return value.ToString();
+        }
     }
     public class Either<T1, T2> : Either where T1 : notnull where T2 : notnull
     {

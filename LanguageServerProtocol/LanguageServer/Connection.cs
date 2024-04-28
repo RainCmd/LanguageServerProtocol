@@ -118,8 +118,7 @@ namespace LanguageServer
             }
             else
             {
-                var idString = id.IsLeft ? id.Left.ToString() : id.Right;
-                Console.Error.WriteLine($"WARN: server does not expect a response to '{idString}'");
+                Console.Error.WriteLine($"WARN: server does not expect a response to '{id}'");
             }
         }
 
@@ -133,8 +132,7 @@ namespace LanguageServer
             }
             else
             {
-                var idString = id.IsLeft ? id.Left.ToString() : id.Right;
-                Console.Error.WriteLine($"WARN: server can not cancel a procedure '{idString}'");
+                Console.Error.WriteLine($"WARN: server can not cancel a procedure '{id}'");
             }
         }
 

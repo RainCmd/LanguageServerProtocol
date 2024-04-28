@@ -9,60 +9,23 @@ namespace LanguageServer.Parameters.TextDocument
     /// <see cref="Command"/>[] | <see cref="CodeAction"/>[]
     /// </remarks>
     /// <seealso>Spec 3.8.0</seealso>
-    public class CodeActionResult : Either
+    public class CodeActionResult : Either<Command[], CodeAction[]>
     {
+
         /// <summary>
-        /// Defines an implicit conversion of a <see cref="T:LanguageServer.Parameters.TextDocument.Command[]"/> to a <see cref="CodeActionResult"/>
+        /// Initializes a new instance of <c>CodeActionResult</c> with the specified value.
         /// </summary>
         /// <param name="value"></param>
-        /// <returns></returns>
         /// <seealso>Spec 3.8.0</seealso>
+        public CodeActionResult(Command[] value) : base(value) { }
+
+        /// <summary>
+        /// Initializes a new instance of <c>CodeActionResult</c> with the specified value.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <seealso>Spec 3.8.0</seealso>
+        public CodeActionResult(CodeAction[] value) : base(value) { }
         public static implicit operator CodeActionResult(Command[] value) => new(value);
-
-        /// <summary>
-        /// Defines an implicit conversion of a <see cref="T:LanguageServer.Parameters.TextDocument.CodeAction[]"/> to a <see cref="CodeActionResult"/>
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        /// <seealso>Spec 3.8.0</seealso>
         public static implicit operator CodeActionResult(CodeAction[] value) => new(value);
-
-        /// <summary>
-        /// Initializes a new instance of <c>CodeActionResult</c> with the specified value.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <seealso>Spec 3.8.0</seealso>
-        public CodeActionResult(Command[] value) : base(value, typeof(Command[])) { }
-
-        /// <summary>
-        /// Initializes a new instance of <c>CodeActionResult</c> with the specified value.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <seealso>Spec 3.8.0</seealso>
-        public CodeActionResult(CodeAction[] value) : base(value, typeof(CodeAction[])) { }
-
-        /// <summary>
-        /// Returns true if its underlying value is a <see cref="T:LanguageServer.Parameters.TextDocument.Command[]"/>.
-        /// </summary>
-        /// <seealso>Spec 3.8.0</seealso>
-        public bool IsCommandArray => type == typeof(Command[]);
-
-        /// <summary>
-        /// Returns true if its underlying value is a <see cref="T:LanguageServer.Parameters.TextDocument.CodeAction[]"/>.
-        /// </summary>
-        /// <seealso>Spec 3.8.0</seealso>
-        public bool IsCodeActionArray => type == typeof(CodeAction[]);
-
-        /// <summary>
-        /// Gets the value of the current object if its underlying value is a <see cref="T:LanguageServer.Parameters.TextDocument.Command[]"/>.
-        /// </summary>
-        /// <seealso>Spec 3.8.0</seealso>
-        public Command[] CommandArray => (Command[])value;
-
-        /// <summary>
-        /// Gets the value of the current object if its underlying value is a <see cref="T:LanguageServer.Parameters.TextDocument.CodeAction[]"/>.
-        /// </summary>
-        /// <seealso>Spec 3.8.0</seealso>
-        public CodeAction[] CodeActionArray => (CodeAction[])value;
     }
 }

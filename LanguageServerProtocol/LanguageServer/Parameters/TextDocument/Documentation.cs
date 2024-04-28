@@ -12,58 +12,22 @@ namespace LanguageServer.Parameters.TextDocument
     /// <see cref="string"/> | <see cref="TextDocument.MarkupContent"/>
     /// </remarks>
     /// <seealso>Spec 3.3.0</seealso>
-    public class Documentation : Either
+    public class Documentation : Either<string, MarkupContent>
     {
         /// <summary>
-        /// Defines an implicit conversion of a <see cref="string"/> to a <see cref="Documentation"/>
+        /// Initializes a new instance of <c>CompletionItemDocumentation</c> with the specified value.
         /// </summary>
         /// <param name="value"></param>
         /// <seealso>Spec 3.3.0</seealso>
+        public Documentation(string value) : base(value) { }
+
+        /// <summary>
+        /// Initializes a new instance of <c>CompletionItemDocumentation</c> with the specified value.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <seealso>Spec 3.3.0</seealso>
+        public Documentation(MarkupContent value) : base(value) { }
         public static implicit operator Documentation(string value) => new(value);
-
-        /// <summary>
-        /// Defines an implicit conversion of a <see cref="MarkupContent"/> to a <see cref="Documentation"/>
-        /// </summary>
-        /// <param name="value"></param>
-        /// <seealso>Spec 3.3.0</seealso>
         public static implicit operator Documentation(MarkupContent value) => new(value);
-
-        /// <summary>
-        /// Initializes a new instance of <c>CompletionItemDocumentation</c> with the specified value.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <seealso>Spec 3.3.0</seealso>
-        public Documentation(string value) : base(value, typeof(string)) { }
-
-        /// <summary>
-        /// Initializes a new instance of <c>CompletionItemDocumentation</c> with the specified value.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <seealso>Spec 3.3.0</seealso>
-        public Documentation(MarkupContent value) : base(value, typeof(MarkupContent)) { }
-
-        /// <summary>
-        /// Returns true if its underlying value is a <see cref="string"/>.
-        /// </summary>
-        /// <seealso>Spec 3.3.0</seealso>
-        public bool IsString => type == typeof(string);
-
-        /// <summary>
-        /// Returns true if its underlying value is a <see cref="MarkupContent"/>.
-        /// </summary>
-        /// <seealso>Spec 3.3.0</seealso>
-        public bool IsMarkupContent => type == typeof(MarkupContent);
-
-        /// <summary>
-        /// Gets the value of the current object if its underlying value is a <see cref="string"/>.
-        /// </summary>
-        /// <seealso>Spec 3.3.0</seealso>
-        public string String => (string)value;
-
-        /// <summary>
-        /// Gets the value of the current object if its underlying value is a <see cref="MarkupContent"/>.
-        /// </summary>
-        /// <seealso>Spec 3.3.0</seealso>
-        public MarkupContent MarkupContent => (MarkupContent)value;
     }
 }

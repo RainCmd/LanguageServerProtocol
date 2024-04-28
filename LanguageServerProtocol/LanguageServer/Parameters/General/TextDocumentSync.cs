@@ -3,51 +3,23 @@
 namespace LanguageServer.Parameters.General
 {
     /// <summary>
-    /// For <c>initialize</c>
+    /// For <c>initialize</c><br/>
+    /// <see cref="TextDocumentSyncKind"/> | <see cref="TextDocumentSyncOptions"/>
     /// </summary>
-    public class TextDocumentSync : Either
+    public class TextDocumentSync : Either<TextDocumentSyncKind, TextDocumentSyncOptions>
     {
-        /// <summary>
-        /// Defines an implicit conversion of a <see cref="TextDocumentSyncKind"/> to a <see cref="TextDocumentSync"/>
-        /// </summary>
-        /// <param name="value"></param>
-        public static implicit operator TextDocumentSync(TextDocumentSyncKind value) => new(value);
-
-        /// <summary>
-        /// Defines an implicit conversion of a <see cref="TextDocumentSyncOptions"/> to a <see cref="TextDocumentSync"/>
-        /// </summary>
-        /// <param name="value"></param>
-        public static implicit operator TextDocumentSync(TextDocumentSyncOptions value) => new(value);
-
         /// <summary>
         /// Initializes a new instance of <c>TextDocumentSync</c> with the specified value.
         /// </summary>
         /// <param name="value"></param>
-        public TextDocumentSync(TextDocumentSyncKind value) : base(value, typeof(TextDocumentSyncKind)) { }
+        public TextDocumentSync(TextDocumentSyncKind value) : base(value) { }
 
         /// <summary>
         /// Initializes a new instance of <c>TextDocumentSync</c>  with the specified value.
         /// </summary>
-        public TextDocumentSync(TextDocumentSyncOptions value) : base(value, typeof(TextDocumentSyncOptions)) { }
+        public TextDocumentSync(TextDocumentSyncOptions value) : base(value) { }
 
-        /// <summary>
-        /// Returns true if its underlying value is a <see cref="TextDocumentSyncKind"/>.
-        /// </summary>
-        public bool IsTextDocumentSyncKind => type == typeof(TextDocumentSyncKind);
-
-        /// <summary>
-        /// Returns true if its underlying value is a <see cref="TextDocumentSyncOptions"/>.
-        /// </summary>
-        public bool IsTextDocumentSyncOptions => type == typeof(TextDocumentSyncOptions);
-
-        /// <summary>
-        /// Gets the value of the current object if its underlying value is a <see cref="TextDocumentSyncKind"/>.
-        /// </summary>
-        public TextDocumentSyncKind TextDocumentSyncKind => (TextDocumentSyncKind)value;
-
-        /// <summary>
-        /// Gets the value of the current object if its underlying value is a <see cref="TextDocumentSyncOptions"/>.
-        /// </summary>
-        public TextDocumentSyncOptions TextDocumentSyncOptions => (TextDocumentSyncOptions)value;
+        public static implicit operator TextDocumentSync(TextDocumentSyncKind value) => new(value);
+        public static implicit operator TextDocumentSync(TextDocumentSyncOptions value) => new(value);
     }
 }

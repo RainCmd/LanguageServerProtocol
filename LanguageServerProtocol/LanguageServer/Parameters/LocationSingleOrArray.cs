@@ -2,22 +2,14 @@
 
 namespace LanguageServer.Parameters
 {
-    public class LocationSingleOrArray : Either
+    /// <summary>
+    /// <see cref="Location"/> | <see cref="Location"/> []
+    /// </summary>
+    public class LocationSingleOrArray : Either<Location, Location[]>
     {
+        public LocationSingleOrArray(Location value) : base(value) { }
+        public LocationSingleOrArray(Location[] value) : base(value) { }
         public static implicit operator LocationSingleOrArray(Location value) => new(value);
-
         public static implicit operator LocationSingleOrArray(Location[] value) => new(value);
-
-        public LocationSingleOrArray(Location value) : base(value, typeof(Location)) { }
-
-        public LocationSingleOrArray(Location[] value) : base(value, typeof(Location[])) { }
-
-        public bool IsSingle => type == typeof(Location);
-
-        public bool IsArray => type == typeof(Location[]);
-
-        public Location Single => (Location)value;
-
-        public Location[] Array => (Location[])value;
     }
 }
