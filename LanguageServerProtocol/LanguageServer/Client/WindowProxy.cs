@@ -1,73 +1,47 @@
-﻿using LanguageServer.Parameters.Client;
-using LanguageServer.Parameters.Window;
+﻿using LanguageServer.Parameters.Window;
 
 namespace LanguageServer.Client
 {
     /// <summary>
     /// 用于发送与窗口相关的消息的代理类。
     /// </summary>
-    public sealed class WindowProxy(Connection connection)
+    public sealed class WindowProxy(Proxy proxy)
     {
         /// <summary>
         /// window/showMessage
         /// 通知从服务器发送到客户端，要求客户端在用户界面中显示特定的消息。
         /// </summary>
-        /// <param name="params"></param>
-        public void ShowMessage(ShowMessageParams @params)
+        public void ShowMessage(ShowMessageParams param)
         {
-            connection.SendNotification(new NotificationMessage<ShowMessageParams>
-            {
-                method = "window/showMessage",
-                @params = @params
-            });
+            proxy.SendNotification("window/showMessage", param);
         }
 
         /// <summary>
         /// window/showMessageRequest
         /// 请求从服务器发送到客户端，请求客户端在用户界面中显示特定的消息。
         /// </summary>
-        /// <param name="params"></param>
         /// <returns></returns>
-        public Task<Result<MessageActionItem, ResponseError>> ShowMessageRequest(ShowMessageRequestParams @params)
+        public Task<MessageActionItem> ShowMessageRequest(ShowMessageRequestParams param)
         {
-            var tcs = new TaskCompletionSource<Result<MessageActionItem, ResponseError>>();
-            connection.SendRequest(
-                new RequestMessage<ShowMessageRequestParams>
-                {
-                    id = IdGenerator.Next(),
-                    method = "window/showMessageRequest",
-                    @params = @params
-                },
-                (ResponseMessage<MessageActionItem, ResponseError> res) => tcs.TrySetResult(Message.ToResult(res)));
-            return tcs.Task;
+            return proxy.SendRequest<ShowMessageRequestParams, MessageActionItem>("window/showMessageRequest", param);
         }
 
         /// <summary>
         /// window/logMessage
         /// 通知从服务器发送到客户端，要求客户端记录特定的消息。
         /// </summary>
-        /// <param name="params"></param>
-        public void LogMessage(LogMessageParams @params)
+        public void LogMessage(LogMessageParams param)
         {
-            connection.SendNotification(new NotificationMessage<LogMessageParams>
-            {
-                method = "window/logMessage",
-                @params = @params
-            });
+            proxy.SendNotification("window/logMessage", param);
         }
 
         /// <summary>
         /// telemetry/event
         /// 通知从服务器发送到客户端，要求客户端记录遥测事件。
         /// </summary>
-        /// <param name="params"></param>
-        public void Event(dynamic @params)
+        public void Event(dynamic param)
         {
-            connection.SendNotification(new NotificationMessage<dynamic>
-            {
-                method = "telemetry/event",
-                @params = @params
-            });
+            proxy.SendNotification("telemetry/event", param);
         }
     }
 }

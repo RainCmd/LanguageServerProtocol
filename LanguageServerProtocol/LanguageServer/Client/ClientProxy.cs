@@ -5,7 +5,7 @@ namespace LanguageServer.Client
     /// <summary>
     /// 用于发送与客户端相关的消息的代理类。
     /// </summary>
-    public sealed class ClientProxy(Connection connection)
+    public sealed class ClientProxy(Proxy proxy)
     {
         /// <summary>
         /// The <c>client/registerCapability</c> request is sent from the server to the client
@@ -15,18 +15,9 @@ namespace LanguageServer.Client
         /// </summary>
         /// <param name="params"></param>
         /// <returns></returns>
-        public Task<VoidResult<ResponseError>> RegisterCapability(RegistrationParams @params)
+        public Task RegisterCapability(RegistrationParams param)
         {
-            var tcs = new TaskCompletionSource<VoidResult<ResponseError>>();
-            connection.SendRequest(
-                new RequestMessage<RegistrationParams>
-                {
-                    id = IdGenerator.Next(),
-                    method = "client/registerCapability",
-                    @params = @params
-                },
-                (VoidResponseMessage<ResponseError> res) => tcs.TrySetResult(Message.ToResult(res)));
-            return tcs.Task;
+            return proxy.SendRequest("client/registerCapability", param);
         }
 
         /// <summary>
@@ -35,18 +26,9 @@ namespace LanguageServer.Client
         /// </summary>
         /// <param name="params"></param>
         /// <returns></returns>
-        public Task<VoidResult<ResponseError>> UnregisterCapability(UnregistrationParams @params)
+        public Task UnregisterCapability(UnregistrationParams param)
         {
-            var tcs = new TaskCompletionSource<VoidResult<ResponseError>>();
-            connection.SendRequest(
-                new RequestMessage<UnregistrationParams>
-                {
-                    id = IdGenerator.Next(),
-                    method = "client/unregisterCapability",
-                    @params = @params
-                },
-                (VoidResponseMessage<ResponseError> res) => tcs.TrySetResult(Message.ToResult(res)));
-            return tcs.Task;
+            return proxy.SendRequest("client/unregisterCapability", param);
         }
     }
 }

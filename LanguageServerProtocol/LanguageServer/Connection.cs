@@ -68,16 +68,18 @@ namespace LanguageServer
                 }
             }
         }
-
         public async Task<bool> ReadAndHandle()
         {
             var json = await Read();
             var messageTest = Serializer.Deserialize<MessageTest>(json);
             if (messageTest == null) return false;
-            if (messageTest.IsRequest) HandleRequest(messageTest.method, messageTest.id, json);
-            else if (messageTest.IsResponse) HandleResponse(messageTest.id, json);
-            else if (messageTest.IsCancellation) HandleCancellation(json);
-            else if (messageTest.IsNotification) HandleNotification(messageTest.method, json);
+            new Task(() =>
+            {
+                if (messageTest.IsRequest) HandleRequest(messageTest.method, messageTest.id, json);
+                else if (messageTest.IsResponse) HandleResponse(messageTest.id, json);
+                else if (messageTest.IsCancellation) HandleCancellation(json);
+                else if (messageTest.IsNotification) HandleNotification(messageTest.method, json);
+            }).Start();
             return true;
         }
 

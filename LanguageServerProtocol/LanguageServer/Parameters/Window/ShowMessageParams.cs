@@ -1,8 +1,8 @@
 ﻿namespace LanguageServer.Parameters.Window
 {
-    public class ShowMessageParams
+    public class ShowMessageParams(MessageType type, string message)
     {
-        public MessageType? type;
-        public string? message;
+        public MessageType type = type;
+        public string message = message;
     }
 }
