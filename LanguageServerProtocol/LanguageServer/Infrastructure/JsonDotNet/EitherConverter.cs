@@ -37,6 +37,8 @@ namespace LanguageServer.Infrastructure.JsonDotNet
                 [typeof(TextDocumentContentChangeEvent)] = ToTextDocumentContentChangeEvent,
                 [typeof(TextDocumentSync)] = ToTextDocumentSync,
                 [typeof(TextEditOrInsertReplaceEdit)] = ToTextEditOrInsertReplaceEdit,
+                [typeof(DocumentDiagnosticReport)] = ToDocumentDiagnosticReport,
+                [typeof(RelatedDocumentDiagnosticReport)] = ToRelatedDocumentDiagnosticReport,
             };
         }
 
@@ -267,6 +269,40 @@ namespace LanguageServer.Infrastructure.JsonDotNet
                     var obj = (JObject)token;
                     if (obj.ContainsKey("range")) return obj.ToObject<TextEdit>()!;
                     else return obj.ToObject<InsertReplaceEdit>()!;
+                default: throw new JsonSerializationException();
+            }
+        }
+
+        private DocumentDiagnosticReport? ToDocumentDiagnosticReport(JToken token)
+        {
+            switch (token.Type)
+            {
+                case JTokenType.Null: return null;
+                case JTokenType.Object:
+                    var obj = (JObject)token;
+                    if (obj.TryGetValue("kind", out var kind) && kind.Type == JTokenType.String)
+                    {
+                        if (kind.ToObject<string>() == DocumentDiagnosticReportKind.Full) return obj.ToObject<RelatedFullDocumentDiagnosticReport>()!;
+                        else return obj.ToObject<RelatedUnchangedDocumentDiagnosticReport>()!;
+                    }
+                    return null;
+                default: throw new JsonSerializationException();
+            }
+        }
+
+        private RelatedDocumentDiagnosticReport? ToRelatedDocumentDiagnosticReport(JToken token)
+        {
+            switch (token.Type)
+            {
+                case JTokenType.Null: return null;
+                case JTokenType.Object:
+                    var obj = (JObject)token;
+                    if (obj.TryGetValue("kind", out var kind) && kind.Type == JTokenType.String)
+                    {
+                        if (kind.ToObject<string>() == DocumentDiagnosticReportKind.Full) return obj.ToObject<FullDocumentDiagnosticReport>()!;
+                        else return obj.ToObject<UnchangedDocumentDiagnosticReport>()!;
+                    }
+                    return null;
                 default: throw new JsonSerializationException();
             }
         }

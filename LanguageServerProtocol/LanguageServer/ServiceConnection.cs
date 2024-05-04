@@ -3,12 +3,88 @@ using LanguageServer.Parameters.General;
 using LanguageServer.Parameters.TextDocument;
 using LanguageServer.Parameters.Workspace;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 
 namespace LanguageServer
 {
     [RequiresDynamicCode("Calls LanguageServer.Reflector.GetRequestType(MethodInfo)")]
     public abstract class ServiceConnection(Stream input, Stream output) : Connection(input, output)
     {
+        /// <summary>
+        /// 根据已实现的功能接口自动初始化一部分参数
+        /// </summary>
+        /// <returns></returns>
+        protected ServerCapabilities GetServerCapabilities()
+        {
+            var capabilities = new HashSet<string>();
+            foreach (var method in GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly))
+            {
+                var rpcMethod = method.GetCustomAttribute<JsonRpcMethodAttribute>()?.Method;
+                if (rpcMethod != null) capabilities.Add(rpcMethod);
+            }
+            var result = new ServerCapabilities();
+            if (capabilities.Contains("workspace/didChangeWorkspaceFolders") || capabilities.Contains("workspace/didChangeConfiguration") || capabilities.Contains("workspace/didChangeWatchedFiles"))
+            {
+                result.workspace ??= new WorkspaceOptions();
+                result.workspace.workspaceFolders ??= new WorkspaceFoldersOptions();
+                result.workspace.workspaceFolders.supported = true;
+                result.workspace.workspaceFolders.changeNotifications = true;
+            }
+            if (capabilities.Contains("workspace/symbol")) result.workspaceSymbolProvider = true;
+            if (capabilities.Contains("workspace/executeCommand"))
+            {
+                //result.executeCommandProvider
+            }
+            if (capabilities.Contains("textDocument/didOpen") || capabilities.Contains("textDocument/didClose"))
+            {
+                result.textDocumentSync ??= new TextDocumentSyncOptions();
+                if (result.textDocumentSync.IsSecond)
+                {
+                    result.textDocumentSync.Second.openClose = true;
+                    result.textDocumentSync.Second.change = TextDocumentSyncKind.Incremental;
+                }
+            }
+            if (capabilities.Contains("textDocument/willSave"))
+            {
+                result.textDocumentSync ??= new TextDocumentSyncOptions();
+                if (result.textDocumentSync.IsSecond)
+                    result.textDocumentSync.Second.willSave = true;
+            }
+            if (capabilities.Contains("textDocument/completion") || capabilities.Contains("completionItem/resolve"))
+            {
+                result.completionProvider ??= new CompletionOptions();
+                result.completionProvider.resolveProvider = true;
+                result.completionProvider.triggerCharacters = [".", "->"];
+            }
+            if (capabilities.Contains("textDocument/hover")) result.hoverProvider = true;
+            if (capabilities.Contains("textDocument/signatureHelp")) result.signatureHelpProvider = new SignatureHelpOptions();
+            if (capabilities.Contains("textDocument/references")) result.referencesProvider = true;
+            if (capabilities.Contains("textDocument/documentHighlight")) result.documentHighlightProvider = true;
+            if (capabilities.Contains("textDocument/documentSymbol")) result.documentSymbolProvider = true;
+            if (capabilities.Contains("textDocument/documentColor") || capabilities.Contains("textDocument/colorPresentation")) result.colorProvider = true;
+            if (capabilities.Contains("textDocument/formatting")) result.documentFormattingProvider = true;
+            if (capabilities.Contains("textDocument/rangeFormatting")) result.documentRangeFormattingProvider = true;
+            if (capabilities.Contains("textDocument/onTypeFormatting")) result.documentOnTypeFormattingProvider = new DocumentOnTypeFormattingOptions();
+            if (capabilities.Contains("textDocument/definition")) result.definitionProvider = true;
+            if (capabilities.Contains("textDocument/typeDefinition")) result.typeDefinitionProvider = true;
+            if (capabilities.Contains("textDocument/implementation")) result.implementationProvider = true;
+            if (capabilities.Contains("textDocument/codeAction")) result.codeActionProvider = true;
+            if (capabilities.Contains("textDocument/codeLens") || capabilities.Contains("codeLens/resolve"))
+            {
+                result.codeLensProvider ??= new CodeLensOptions();
+                result.codeLensProvider.resolveProvider = true;
+            }
+            if (capabilities.Contains("textDocument/documentLink") || capabilities.Contains("documentLink/resolve"))
+            {
+                result.documentLinkProvider ??= new DocumentLinkOptions();
+                result.documentLinkProvider.resolveProvider = true;
+            }
+            if (capabilities.Contains("textDocument/rename")) result.renameProvider = true;
+            if (capabilities.Contains("textDocument/foldingRange")) result.foldingRangeProvider = true;
+            if (capabilities.Contains("textDocument/diagnostic")) result.diagnosticProvider = new DiagnosticOptionsOrProviderOptions(new DiagnosticOptions(true, true));
+
+            return result;
+        }
         #region General
 
         [JsonRpcMethod("initialize")]
@@ -540,6 +616,16 @@ namespace LanguageServer
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 文本文档诊断请求从客户机发送到服务器，请求服务器计算给定文档的诊断结果。
+        /// 与其他拉取请求一样，服务器被要求计算当前同步版本文档的诊断信息。
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        [JsonRpcMethod("textDocument/diagnostic")]
+        protected virtual Result<DocumentDiagnosticReport, ResponseError> DocumentDiagnostic(DocumentDiagnosticParams param, CancellationToken token)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

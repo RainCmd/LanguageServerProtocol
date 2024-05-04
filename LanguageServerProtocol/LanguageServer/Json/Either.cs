@@ -22,6 +22,8 @@
     /// <item><see cref="Parameters.TextDocument.TextDocumentContentChangeEvent"/></item>
     /// <item><see cref="Parameters.General.TextDocumentSync"/></item>
     /// <item><see cref="Parameters.TextDocument.TextEditOrInsertReplaceEdit"/></item>
+    /// <item><see cref="Parameters.TextDocument.DocumentDiagnosticReport"/></item>
+    /// <item><see cref="Parameters.TextDocument.RelatedDocumentDiagnosticReport"/></item>
     /// </list>
     /// </remarks>
     public abstract class Either(object value, Type type)
