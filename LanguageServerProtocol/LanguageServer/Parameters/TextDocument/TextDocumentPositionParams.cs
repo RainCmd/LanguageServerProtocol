@@ -12,5 +12,10 @@
         public TextDocumentIdentifier textDocument = textDocument;
 
         public Position position = position;
+
+        /// <summary>
+        /// 签名帮助上下文。只有当客户端指定使用客户端功能' textDocument.signatureHelp.contextSupport === true '发送此消息时才可用。
+        /// </summary>
+        public SignatureHelpContext? context;
     }
 }
