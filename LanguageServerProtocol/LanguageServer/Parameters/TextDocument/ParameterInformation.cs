@@ -4,8 +4,8 @@
     /// For <c>textDocument/signatureHelp</c>
     /// </summary>
     /// <remarks>
-    /// Represents a parameter of a callable-signature.
-    /// A parameter can have a label and a doc-comment.
+    /// 表示可调用签名的参数。
+    /// 参数可以有一个标签和一个文档注释。
     /// </remarks>
     /// <seealso>Spec 3.3.0</seealso>
     public class ParameterInformation
@@ -19,10 +19,10 @@
         public string? label;
 
         /// <summary>
-        /// The human-readable doc-comment of this parameter.
+        /// 这个参数的可读文档注释。
         /// </summary>
         /// <remarks>
-        /// Will be shown in the UI but can be omitted.
+        /// 将显示在UI中，但可以省略。
         /// </remarks>
         /// <seealso>Spec 3.3.0</seealso>
         public Documentation? documentation;

@@ -4,14 +4,14 @@
     /// For <c>textDocument/signatureHelp</c>
     /// </summary>
     /// <remarks>
-    /// Represents the signature of something callable.
-    /// A signature can have a label, like a function-name, a doc-comment, and a set of parameters.
+    /// 表示可调用对象的签名。
+    /// 一个签名可以有一个标签(如函数名)、一个文档注释和一组参数。
     /// </remarks>
     /// <seealso>Spec 3.3.0</seealso>
     public class SignatureInformation
     {
         /// <summary>
-        /// The label of this signature.
+        /// 这个签名的标签。
         /// </summary>
         /// <remarks>
         /// Will be shown in the UI.
@@ -22,13 +22,13 @@
         /// The human-readable doc-comment of this parameter.
         /// </summary>
         /// <remarks>
-        /// Will be shown in the UI but can be omitted.
+        /// 将显示在UI中，但可以省略。
         /// </remarks>
         /// <seealso>Spec 3.3.0</seealso>
         public Documentation? documentation;
 
         /// <summary>
-        /// The parameters of this signature.
+        /// 该签名的参数。
         /// </summary>
         public ParameterInformation[]? parameters;
     }
