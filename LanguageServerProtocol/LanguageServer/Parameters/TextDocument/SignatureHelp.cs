@@ -3,12 +3,12 @@
     /// <summary>
     /// For <c>textDocument/signatureHelp</c>
     /// </summary>
-    public class SignatureHelp
+    public class SignatureHelp(SignatureInformation[] signatures)
     {
         /// <summary>
         /// One or more signatures.
         /// </summary>
-        public SignatureInformation[]? signatures;
+        public SignatureInformation[] signatures = signatures;
 
         /// <summary>
         /// 主签名。

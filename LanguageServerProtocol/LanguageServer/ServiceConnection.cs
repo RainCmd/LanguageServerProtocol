@@ -57,7 +57,7 @@ namespace LanguageServer
                 result.completionProvider.triggerCharacters = [".", "->"];
             }
             if (capabilities.Contains("textDocument/hover")) result.hoverProvider = true;
-            if (capabilities.Contains("textDocument/signatureHelp")) result.signatureHelpProvider = new SignatureHelpOptions() { triggerCharacters = ["("] };
+            if (capabilities.Contains("textDocument/signatureHelp")) result.signatureHelpProvider = new SignatureHelpOptions() { triggerCharacters = ["(", ","] };
             if (capabilities.Contains("textDocument/references")) result.referencesProvider = true;
             if (capabilities.Contains("textDocument/documentHighlight")) result.documentHighlightProvider = true;
             if (capabilities.Contains("textDocument/documentSymbol")) result.documentSymbolProvider = true;

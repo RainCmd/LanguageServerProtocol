@@ -8,7 +8,7 @@
     /// 参数可以有一个标签和一个文档注释。
     /// </remarks>
     /// <seealso>Spec 3.3.0</seealso>
-    public class ParameterInformation
+    public class ParameterInformation(string label)
     {
         /// <summary>
         /// The label of this parameter.
@@ -16,7 +16,7 @@
         /// <remarks>
         /// Will be shown in the UI.
         /// </remarks>
-        public string? label;
+        public string label = label;
 
         /// <summary>
         /// 这个参数的可读文档注释。

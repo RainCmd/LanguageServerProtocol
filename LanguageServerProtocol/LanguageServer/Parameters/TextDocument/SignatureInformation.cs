@@ -8,7 +8,7 @@
     /// 一个签名可以有一个标签(如函数名)、一个文档注释和一组参数。
     /// </remarks>
     /// <seealso>Spec 3.3.0</seealso>
-    public class SignatureInformation
+    public class SignatureInformation(string label)
     {
         /// <summary>
         /// 这个签名的标签。
@@ -16,7 +16,7 @@
         /// <remarks>
         /// Will be shown in the UI.
         /// </remarks>
-        public string? label;
+        public string label = label;
 
         /// <summary>
         /// The human-readable doc-comment of this parameter.
