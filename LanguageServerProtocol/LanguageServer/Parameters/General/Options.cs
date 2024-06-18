@@ -58,7 +58,7 @@
         public bool resolveProvider;
 
         /// <summary>
-        /// 自动触发补全的字符。
+        /// 自动触发补全的字符。只支持单个字符
         /// </summary>
         public string[]? triggerCharacters;
 

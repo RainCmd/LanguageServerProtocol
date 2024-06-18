@@ -54,7 +54,7 @@ namespace LanguageServer
             {
                 result.completionProvider ??= new CompletionOptions();
                 result.completionProvider.resolveProvider = true;
-                result.completionProvider.triggerCharacters = [".", "->"];
+                result.completionProvider.triggerCharacters = ["."];
             }
             if (capabilities.Contains("textDocument/hover")) result.hoverProvider = true;
             if (capabilities.Contains("textDocument/signatureHelp")) result.signatureHelpProvider = new SignatureHelpOptions() { triggerCharacters = ["(", ","] };
