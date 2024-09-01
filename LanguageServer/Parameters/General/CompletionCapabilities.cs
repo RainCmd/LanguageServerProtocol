@@ -1,6 +1,4 @@
-﻿using LanguageServer.Parameters.TextDocument;
-
-namespace LanguageServer.Parameters.General
+﻿namespace LanguageServer.Parameters.General
 {
     /// <summary>
     /// For <c>initialize</c>

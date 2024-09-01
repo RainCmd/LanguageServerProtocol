@@ -2,11 +2,11 @@
 
 namespace LanguageServer.Parameters.TextDocument
 {
-	/// <summary>
-	/// For <c>textDocument/codeAction</c> and <c>textDocument/publishDiagnostics</c>
-	/// </summary>
-	/// <seealso>Spec 3.7.0</seealso>
-	public class Diagnostic(Range range, string message)
+    /// <summary>
+    /// For <c>textDocument/codeAction</c> and <c>textDocument/publishDiagnostics</c>
+    /// </summary>
+    /// <seealso>Spec 3.7.0</seealso>
+    public class Diagnostic(Range range, string message)
     {
         /// <summary>
         /// 消息适用的范围。
