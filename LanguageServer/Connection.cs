@@ -105,12 +105,15 @@ namespace LanguageServer
                     Task.Run(() =>
                     {
                         Task.Delay(timeout).Wait();
-                        if (!flag) OnTimeout?.Invoke(messageTest.method);
+                        if (!flag)
+                        {
+                            flag = true;
+                            OnTimeout?.Invoke(messageTest.method);
+                        }
                     });
                     Processing(messageTest, json);
+                    if (flag) OnTimeoutRequestFinish?.Invoke(messageTest.method, (int)(DateTime.Now - begin).TotalMilliseconds);
                     flag = true;
-                    if (timeout > 0 && DateTime.Now - begin > TimeSpan.FromMilliseconds(timeout))
-                        OnTimeoutRequestFinish?.Invoke(messageTest.method, (int)(DateTime.Now - begin).TotalMilliseconds);
                 }
                 else Processing(messageTest, json);
             }).Start();
