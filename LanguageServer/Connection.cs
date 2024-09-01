@@ -8,8 +8,14 @@ using System.Text;
 
 namespace LanguageServer
 {
+    /// <summary>
+    /// rpc连接
+    /// 提供基础的远程调用接口
+    /// </summary>
     public class Connection
     {
+        public delegate void Callback(string method);
+        public delegate void RequestFinish(string method, int time);
         private readonly ProtocolReader input;
         private readonly Stream output;
         private const byte CR = 13;
@@ -17,17 +23,34 @@ namespace LanguageServer
         private readonly byte[] separator = [CR, LF];
         private readonly object outputLock = new();
         private readonly Proxy proxy;
+        public readonly int timeout;
+        /// <summary>
+        /// 当请求执行时间大于<see cref="timeout"/>毫秒时会触发该事件。
+        /// 仅在<see cref="timeout"/>大于0时有效。
+        /// </summary>
+        public event Callback? OnTimeout;
+        /// <summary>
+        /// 当超时请求完成时触发回调
+        /// </summary>
+        public event RequestFinish? OnTimeoutRequestFinish;
         public Proxy Proxy => proxy;
 
         private readonly RequestHandlerCollection RequestHandlers = new();
         private readonly NotificationHandlerCollection NotificationHandlers = new();
         private readonly ResponseHandlerCollection ResponseHandlers = new();
         private readonly CancellationHandlerCollection CancellationHandlers = new();
+        /// <summary>
+        /// rpc连接
+        /// </summary>
+        /// <param name="input">输入流</param>
+        /// <param name="output">输出流</param>
+        /// <param name="timeout">请求处理的超时时间，单位毫秒</param>
         [RequiresDynamicCode("Calls LanguageServer.Reflector.GetRequestType(MethodInfo)")]
-        public Connection(Stream input, Stream output)
+        public Connection(Stream input, Stream output, int timeout)
         {
             this.input = new ProtocolReader(input);
             this.output = output;
+            this.timeout = timeout;
             proxy = new Proxy(this);
             foreach (var method in GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly))
             {
@@ -68,19 +91,37 @@ namespace LanguageServer
                 }
             }
         }
-        public async Task<bool> ReadAndHandle()
+        private async Task<bool> ReadAndHandle()
         {
             var json = await Read();
             var messageTest = Serializer.Deserialize<MessageTest>(json);
             if (messageTest == null) return false;
             new Task(() =>
             {
-                if (messageTest.IsRequest) HandleRequest(messageTest.method, messageTest.id, json);
-                else if (messageTest.IsResponse) HandleResponse(messageTest.id, json);
-                else if (messageTest.IsCancellation) HandleCancellation(json);
-                else if (messageTest.IsNotification) HandleNotification(messageTest.method, json);
+                if (timeout > 0)
+                {
+                    var flag = false;
+                    var begin = DateTime.Now;
+                    Task.Run(() =>
+                    {
+                        Task.Delay(timeout).Wait();
+                        if (!flag) OnTimeout?.Invoke(messageTest.method);
+                    });
+                    Processing(messageTest, json);
+                    flag = true;
+                    if (timeout > 0 && DateTime.Now - begin > TimeSpan.FromMilliseconds(timeout))
+                        OnTimeoutRequestFinish?.Invoke(messageTest.method, (int)(DateTime.Now - begin).TotalMilliseconds);
+                }
+                else Processing(messageTest, json);
             }).Start();
             return true;
+        }
+        private void Processing(MessageTest test, string json)
+        {
+            if (test.IsRequest) HandleRequest(test.method, test.id, json);
+            else if (test.IsResponse) HandleResponse(test.id, json);
+            else if (test.IsCancellation) HandleCancellation(json);
+            else if (test.IsNotification) HandleNotification(test.method, json);
         }
 
         private void HandleRequest(string method, NumberOrString id, string json)

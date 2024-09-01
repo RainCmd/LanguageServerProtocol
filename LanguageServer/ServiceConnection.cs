@@ -7,8 +7,15 @@ using System.Reflection;
 
 namespace LanguageServer
 {
+    /// <summary>
+    /// 语言服务连接
+    /// 定义了基本的lsp交互接口并且对已实现接口提供自动初始化配置对象。
+    /// </summary>
+    /// <param name="input">输入流</param>
+    /// <param name="output">输出流</param>
+    /// <param name="timeout">请求处理的超时时间，单位毫秒</param>
     [RequiresDynamicCode("Calls LanguageServer.Reflector.GetRequestType(MethodInfo)")]
-    public abstract class ServiceConnection(Stream input, Stream output) : Connection(input, output)
+    public abstract class ServiceConnection(Stream input, Stream output, int timeout) : Connection(input, output, timeout)
     {
         /// <summary>
         /// 根据已实现的功能接口自动初始化一部分参数
