@@ -1,6 +1,7 @@
 # LanguageServerProtocol
 基于[这个仓库](https://github.com/matarillo/LanguageServerProtocol)修改的支持.Net8.0的LSP的CSharp实现。
 
+* 请求处理接口添加超时监测功能
 * 清理了一些不必要的脚本
 * 消除了编译警告
 * 修复一些小bug
