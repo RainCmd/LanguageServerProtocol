@@ -89,34 +89,24 @@ namespace LanguageServer
             if (capabilities.Contains("textDocument/rename")) result.renameProvider = true;
             if (capabilities.Contains("textDocument/foldingRange")) result.foldingRangeProvider = true;
             if (capabilities.Contains("textDocument/diagnostic")) result.diagnosticProvider = new DiagnosticOptionsOrProviderOptions(new DiagnosticOptions(true, true));
+            if (capabilities.Contains("textDocument/inlineValue")) result.inlineValueProvider = true;
+            if (capabilities.Contains("textDocument/inlayHint")) result.inlayHintProvider = true;
 
             return result;
         }
         #region General
 
         [JsonRpcMethod("initialize")]
-        protected virtual Result<InitializeResult, ResponseError<InitializeErrorData>> Initialize(InitializeParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<InitializeResult, ResponseError<InitializeErrorData>> Initialize(InitializeParams param, CancellationToken token) => throw new NotImplementedException();
 
         [JsonRpcMethod("initialized")]
-        protected virtual void Initialized()
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual void Initialized() => throw new NotImplementedException();
 
         [JsonRpcMethod("shutdown")]
-        protected virtual VoidResult<ResponseError> Shutdown(CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual VoidResult<ResponseError> Shutdown(CancellationToken token) => throw new NotImplementedException();
 
         [JsonRpcMethod("exit")]
-        protected virtual void Exit()
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual void Exit() => throw new NotImplementedException();
 
         #endregion
 
@@ -143,20 +133,14 @@ namespace LanguageServer
         /// </remarks>
         /// <seealso>Spec 3.6.0</seealso>
         [JsonRpcMethod("workspace/didChangeWorkspaceFolders")]
-        protected virtual void DidChangeWorkspaceFolders(DidChangeWorkspaceFoldersParams param)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual void DidChangeWorkspaceFolders(DidChangeWorkspaceFoldersParams param) => throw new NotImplementedException();
 
         // dynamicRegistration?: boolean;
         /// <summary>
         /// 从客户机发送到服务器的通知，以表示配置设置的更改。
         /// </summary>
         [JsonRpcMethod("workspace/didChangeConfiguration")]
-        protected virtual void DidChangeConfiguration(DidChangeConfigurationParams param)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual void DidChangeConfiguration(DidChangeConfigurationParams param) => throw new NotImplementedException();
 
         // dynamicRegistration?: boolean;
         /// <summary>
@@ -182,10 +166,7 @@ namespace LanguageServer
         /// </list>
         /// </remarks>
         [JsonRpcMethod("workspace/didChangeWatchedFiles")]
-        protected virtual void DidChangeWatchedFiles(DidChangeWatchedFilesParams param)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual void DidChangeWatchedFiles(DidChangeWatchedFilesParams param) => throw new NotImplementedException();
 
         // dynamicRegistration?: boolean;
         // Registration Options: void
@@ -197,10 +178,7 @@ namespace LanguageServer
         /// 只有当客户端通过workspace.symbol. resolvessupport功能宣布支持该模型时，服务器才能使用该新模型。
         /// </summary>
         [JsonRpcMethod("workspace/symbol")]
-        protected virtual Result<SymbolInformation[], ResponseError> Symbol(WorkspaceSymbolParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<SymbolInformation[], ResponseError> Symbol(WorkspaceSymbolParams param, CancellationToken token) => throw new NotImplementedException();
 
         // dynamicRegistration?: boolean;
         // Registration Options: ExecuteCommandRegistrationOptions
@@ -209,10 +187,7 @@ namespace LanguageServer
         /// 在大多数情况下，服务器创建一个WorkspaceEdit结构，并使用从服务器发送到客户端的请求workspace/applyEdit将更改应用到工作空间。
         /// </summary>
         [JsonRpcMethod("workspace/executeCommand")]
-        protected virtual Result<dynamic, ResponseError> ExecuteCommand(ExecuteCommandParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<dynamic, ResponseError> ExecuteCommand(ExecuteCommandParams param, CancellationToken token) => throw new NotImplementedException();
 
         #endregion
 
@@ -233,10 +208,7 @@ namespace LanguageServer
         /// 那么接着发送一个带有新语言id的textDocument/didOpen给服务器。
         /// </remarks>
         [JsonRpcMethod("textDocument/didOpen")]
-        protected virtual void DidOpenTextDocument(DidOpenTextDocumentParams param)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual void DidOpenTextDocument(DidOpenTextDocumentParams param) => throw new NotImplementedException();
 
         // Registration Options: TextDocumentChangeRegistrationOptions
         /// <summary>
@@ -245,10 +217,7 @@ namespace LanguageServer
         /// 在2.0中，参数的形状已经改变，以包含适当的版本号。
         /// </summary>
         [JsonRpcMethod("textDocument/didChange")]
-        protected virtual void DidChangeTextDocument(DidChangeTextDocumentParams param)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual void DidChangeTextDocument(DidChangeTextDocumentParams param) => throw new NotImplementedException();
 
         // Registration Options: TextDocumentRegistrationOptions
         /// <summary>
@@ -257,10 +226,7 @@ namespace LanguageServer
         /// 因为客户端不能在没有所有权转移的情况下更改文件的内容。
         /// </summary>
         [JsonRpcMethod("textDocument/willSave")]
-        protected virtual void WillSaveTextDocument(WillSaveTextDocumentParams param)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual void WillSaveTextDocument(WillSaveTextDocumentParams param) => throw new NotImplementedException();
 
         // Registration Options: TextDocumentRegistrationOptions
         /// <summary>
@@ -271,20 +237,14 @@ namespace LanguageServer
         /// 因为客户端不能在没有所有权转移的情况下更改文件的内容。
         /// </summary>
         [JsonRpcMethod("textDocument/willSaveWaitUntil")]
-        protected virtual Result<TextEdit[], ResponseError> WillSaveWaitUntilTextDocument(WillSaveTextDocumentParams param)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<TextEdit[], ResponseError> WillSaveWaitUntilTextDocument(WillSaveTextDocumentParams param) => throw new NotImplementedException();
 
         // Registration Options: TextDocumentSaveRegistrationOptions
         /// <summary>
         /// 文档保存通知在文档保存到客户端时从客户端发送到服务器。
         /// </summary>
         [JsonRpcMethod("textDocument/didSave")]
-        protected virtual void DidSaveTextDocument(DidSaveTextDocumentParams param)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual void DidSaveTextDocument(DidSaveTextDocumentParams param) => throw new NotImplementedException();
 
         // Registration Options: TextDocumentRegistrationOptions
         /// <summary>
@@ -295,10 +255,7 @@ namespace LanguageServer
         /// 请注意，服务器完成请求的能力与文本文档是打开还是关闭无关。
         /// </summary>
         [JsonRpcMethod("textDocument/didClose")]
-        protected virtual void DidCloseTextDocument(DidCloseTextDocumentParams param)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual void DidCloseTextDocument(DidCloseTextDocumentParams param) => throw new NotImplementedException();
 
         /// <summary>
         /// 完成请求从客户机发送到服务器，以在给定的光标位置计算完成项。
@@ -324,19 +281,13 @@ namespace LanguageServer
         /// <seealso cref="TextDocumentClientCapabilities"/>
         /// <seealso>Spec 3.3.0</seealso>
         [JsonRpcMethod("textDocument/completion")]
-        protected virtual Result<CompletionResult, ResponseError> Completion(CompletionParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<CompletionResult, ResponseError> Completion(CompletionParams param, CancellationToken token) => throw new NotImplementedException();
 
         /// <summary>
         /// 请求从客户机发送到服务器，以解析给定完成项的附加信息。
         /// </summary>
         [JsonRpcMethod("completionItem/resolve")]
-        protected virtual Result<CompletionItem, ResponseError> ResolveCompletionItem(CompletionItem param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<CompletionItem, ResponseError> ResolveCompletionItem(CompletionItem param, CancellationToken token) => throw new NotImplementedException();
 
         // dynamicRegistration?: boolean;
         // Registration Options: TextDocumentRegistrationOptions
@@ -344,10 +295,7 @@ namespace LanguageServer
         /// 悬停请求从客户端发送到服务器，以请求在给定文本文档位置的悬停信息。
         /// </summary>
         [JsonRpcMethod("textDocument/hover")]
-        protected virtual Result<Hover, ResponseError> Hover(TextDocumentPositionParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<Hover, ResponseError> Hover(TextDocumentPositionParams param, CancellationToken token) => throw new NotImplementedException();
 
         // dynamicRegistration?: boolean;
         // Registration Options: SignatureHelpRegistrationOptions
@@ -355,10 +303,7 @@ namespace LanguageServer
         /// 签名帮助请求从客户机发送到服务器，以请求给定光标位置的签名信息。
         /// </summary>
         [JsonRpcMethod("textDocument/signatureHelp")]
-        protected virtual Result<SignatureHelp, ResponseError> SignatureHelp(TextDocumentPositionParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<SignatureHelp, ResponseError> SignatureHelp(TextDocumentPositionParams param, CancellationToken token) => throw new NotImplementedException();
 
         // dynamicRegistration?: boolean;
         // Registration Options: TextDocumentRegistrationOptions
@@ -366,10 +311,7 @@ namespace LanguageServer
         /// 引用请求从客户端发送到服务器，以解析由给定文本文档位置表示的符号的项目范围引用。
         /// </summary>
         [JsonRpcMethod("textDocument/references")]
-        protected virtual Result<Location[], ResponseError> FindReferences(ReferenceParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<Location[], ResponseError> FindReferences(ReferenceParams param, CancellationToken token) => throw new NotImplementedException();
 
         // dynamicRegistration?: boolean;
         // Registration Options: TextDocumentRegistrationOptions
@@ -380,10 +322,7 @@ namespace LanguageServer
         /// 因为第一个被允许更加模糊。符号匹配通常有一个“读”或“写”的DocumentHighlightKind，而模糊或文本匹配使用“文本”作为类型。
         /// </summary>
         [JsonRpcMethod("textDocument/documentHighlight")]
-        protected virtual Result<DocumentHighlight[], ResponseError> DocumentHighlight(TextDocumentPositionParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<DocumentHighlight[], ResponseError> DocumentHighlight(TextDocumentPositionParams param, CancellationToken token) => throw new NotImplementedException();
 
         /// <summary>
         /// 文档符号请求从客户机发送到服务器
@@ -400,10 +339,7 @@ namespace LanguageServer
         /// <seealso cref="TextDocumentClientCapabilities"/>
         /// <seealso>Spec 3.10.0</seealso>
         [JsonRpcMethod("textDocument/documentSymbol")]
-        protected virtual Result<DocumentSymbolResult, ResponseError> DocumentSymbols(DocumentSymbolParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<DocumentSymbolResult, ResponseError> DocumentSymbols(DocumentSymbolParams param, CancellationToken token) => throw new NotImplementedException();
 
         /// <summary>
         /// 文档颜色请求从客户机发送到服务器
@@ -419,10 +355,7 @@ namespace LanguageServer
         /// </remarks>
         /// <seealso>Spec 3.6.0</seealso>
         [JsonRpcMethod("textDocument/documentColor")]
-        protected virtual Result<ColorInformation[], ResponseError> DocumentColor(DocumentColorParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<ColorInformation[], ResponseError> DocumentColor(DocumentColorParams param, CancellationToken token) => throw new NotImplementedException();
 
         /// <summary>
         /// 颜色表示请求从客户机发送到服务器
@@ -437,10 +370,7 @@ namespace LanguageServer
         /// </remarks>
         /// <seealso>Spec 3.6.0</seealso>
         [JsonRpcMethod("textDocument/colorPresentation")]
-        protected virtual Result<ColorPresentation[], ResponseError> ColorPresentation(ColorPresentationParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<ColorPresentation[], ResponseError> ColorPresentation(ColorPresentationParams param, CancellationToken token) => throw new NotImplementedException();
 
         // dynamicRegistration?: boolean;
         // Registration Options: TextDocumentRegistrationOptions
@@ -448,10 +378,7 @@ namespace LanguageServer
         /// 文档格式化请求从客户机发送到服务器以格式化整个文档。
         /// </summary>
         [JsonRpcMethod("textDocument/formatting")]
-        protected virtual Result<TextEdit[], ResponseError> DocumentFormatting(DocumentFormattingParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<TextEdit[], ResponseError> DocumentFormatting(DocumentFormattingParams param, CancellationToken token) => throw new NotImplementedException();
 
         // dynamicRegistration?: boolean;
         // Registration Options: TextDocumentRegistrationOptions
@@ -459,10 +386,7 @@ namespace LanguageServer
         /// 文档范围格式化请求从客户机发送到服务器，以格式化文档中的给定范围。
         /// </summary>
         [JsonRpcMethod("textDocument/rangeFormatting")]
-        protected virtual Result<TextEdit[], ResponseError> DocumentRangeFormatting(DocumentRangeFormattingParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<TextEdit[], ResponseError> DocumentRangeFormatting(DocumentRangeFormattingParams param, CancellationToken token) => throw new NotImplementedException();
 
         // dynamicRegistration?: boolean;
         // Registration Options: DocumentOnTypeFormattingRegistrationOptions
@@ -470,10 +394,7 @@ namespace LanguageServer
         /// 文档的类型格式化请求从客户端发送到服务器，以便在键入过程中格式化文档的部分内容。
         /// </summary>
         [JsonRpcMethod("textDocument/onTypeFormatting")]
-        protected virtual Result<TextEdit[], ResponseError> DocumentOnTypeFormatting(DocumentOnTypeFormattingParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<TextEdit[], ResponseError> DocumentOnTypeFormatting(DocumentOnTypeFormattingParams param, CancellationToken token) => throw new NotImplementedException();
 
         /// <summary>
         /// goto定义请求从客户机发送到服务器
@@ -484,10 +405,7 @@ namespace LanguageServer
         /// </remarks>
         /// <seealso cref="TextDocumentClientCapabilities"/>
         [JsonRpcMethod("textDocument/definition")]
-        protected virtual Result<LocationSingleOrArray, ResponseError> GotoDefinition(TextDocumentPositionParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<LocationSingleOrArray, ResponseError> GotoDefinition(TextDocumentPositionParams param, CancellationToken token) => throw new NotImplementedException();
 
         /// <summary>
         /// goto类型定义请求从客户机发送到服务器
@@ -499,10 +417,7 @@ namespace LanguageServer
         /// <seealso cref="TextDocumentClientCapabilities"/>
         /// <seealso>Spec 3.6.0</seealso>
         [JsonRpcMethod("textDocument/typeDefinition")]
-        protected virtual Result<LocationSingleOrArray, ResponseError> GotoTypeDefinition(TextDocumentPositionParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<LocationSingleOrArray, ResponseError> GotoTypeDefinition(TextDocumentPositionParams param, CancellationToken token) => throw new NotImplementedException();
 
         /// <summary>
         /// goto实现请求从客户机发送到服务器
@@ -514,10 +429,7 @@ namespace LanguageServer
         /// <seealso cref="TextDocumentClientCapabilities"/>
         /// <seealso>Spec 3.6.0</seealso>
         [JsonRpcMethod("textDocument/implementation")]
-        protected virtual Result<LocationSingleOrArray, ResponseError> GotoImplementation(TextDocumentPositionParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<LocationSingleOrArray, ResponseError> GotoImplementation(TextDocumentPositionParams param, CancellationToken token) => throw new NotImplementedException();
 
         /// <summary>
         /// 代码操作请求从客户机发送到服务器
@@ -556,10 +468,7 @@ namespace LanguageServer
         /// <seealso cref="TextDocumentClientCapabilities"/>
         /// <seealso>Spec 3.8.0</seealso>
         [JsonRpcMethod("textDocument/codeAction")]
-        protected virtual Result<CodeActionResult, ResponseError> CodeAction(CodeActionParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<CodeActionResult, ResponseError> CodeAction(CodeActionParams param, CancellationToken token) => throw new NotImplementedException();
 
         // dynamicRegistration?: boolean;
         // Registration Options: CodeLensRegistrationOptions
@@ -567,19 +476,13 @@ namespace LanguageServer
         /// 代码透镜请求从客户机发送到服务器，以计算给定文本文档的代码透镜。
         /// </summary>
         [JsonRpcMethod("textDocument/codeLens")]
-        protected virtual Result<CodeLens[], ResponseError> CodeLens(CodeLensParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<CodeLens[], ResponseError> CodeLens(CodeLensParams param, CancellationToken token) => throw new NotImplementedException();
 
         /// <summary>
         /// 代码透镜解析请求从客户机发送到服务器，以解析给定代码透镜项的命令。
         /// </summary>
         [JsonRpcMethod("codeLens/resolve")]
-        protected virtual Result<CodeLens, ResponseError> ResolveCodeLens(CodeLens param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<CodeLens, ResponseError> ResolveCodeLens(CodeLens param, CancellationToken token) => throw new NotImplementedException();
 
         // dynam0icRegistration?: boolean;
         // Registration Options: DocumentLinkRegistrationOptions
@@ -587,19 +490,13 @@ namespace LanguageServer
         /// 文档链接请求从客户机发送到服务器，以请求文档中链接的位置。
         /// </summary>
         [JsonRpcMethod("textDocument/documentLink")]
-        protected virtual Result<DocumentLink[], ResponseError> DocumentLink(DocumentLinkParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<DocumentLink[], ResponseError> DocumentLink(DocumentLinkParams param, CancellationToken token) => throw new NotImplementedException();
 
         /// <summary>
         /// 文档链接解析请求从客户机发送到服务器，以解析给定文档链接的目标。
         /// </summary>
         [JsonRpcMethod("documentLink/resolve")]
-        protected virtual Result<DocumentLink, ResponseError> ResolveDocumentLink(DocumentLink param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<DocumentLink, ResponseError> ResolveDocumentLink(DocumentLink param, CancellationToken token) => throw new NotImplementedException();
 
         // dynamicRegistration?: boolean;
         // Registration Options: TextDocumentRegistrationOptions
@@ -607,10 +504,7 @@ namespace LanguageServer
         /// 符号的新名称。如果给定的名称无效，请求必须返回一个带有适当消息集的[ResponseError](#ResponseError)。
         /// </summary>
         [JsonRpcMethod("textDocument/rename")]
-        protected virtual Result<WorkspaceEdit, ResponseError> Rename(RenameParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<WorkspaceEdit, ResponseError> Rename(RenameParams param, CancellationToken token) => throw new NotImplementedException();
 
         /// <summary>
         /// 折叠范围请求从客户机发送到服务器，
@@ -618,10 +512,7 @@ namespace LanguageServer
         /// </summary>
         /// <seealso>Spec 3.10.0</seealso>
         [JsonRpcMethod("textDocument/foldingRange")]
-        protected virtual Result<FoldingRange[], ResponseError> FoldingRange(FoldingRangeRequestParam param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<FoldingRange[], ResponseError> FoldingRange(FoldingRangeRequestParam param, CancellationToken token) => throw new NotImplementedException();
 
         /// <summary>
         /// 文本文档诊断请求从客户机发送到服务器，请求服务器计算给定文档的诊断结果。
@@ -629,10 +520,34 @@ namespace LanguageServer
         /// </summary>
         /// <exception cref="NotImplementedException"></exception>
         [JsonRpcMethod("textDocument/diagnostic")]
-        protected virtual Result<DocumentDiagnosticReport, ResponseError> DocumentDiagnostic(DocumentDiagnosticParams param, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
+        protected virtual Result<DocumentDiagnosticReport, ResponseError> DocumentDiagnostic(DocumentDiagnosticParams param, CancellationToken token) => throw new NotImplementedException();
+
+        /// <summary>
+        /// 内联值请求从客户机发送到服务器，以计算给定文本文档的内联值，这些文本文档可能会在编辑器的行尾呈现。
+        /// </summary>
+        /// <seealso>Spec 3.17.0</seealso>
+        /// <exception cref="NotImplementedException"></exception>
+        [JsonRpcMethod("textDocument/inlineValue")]
+        protected virtual Result<InlineValueResult[], ResponseError> InlineValue(InlineValueParams param, CancellationToken token) => throw new NotImplementedException();
+
+        /// <summary>
+        /// 嵌入提示请求从客户机发送到服务器，以计算给定[text document, range]元组的嵌入提示，该元组可能在编辑器中与其他文本一起呈现。
+        /// </summary>
+        /// <seealso>Spec 3.17.0</seealso>
+        /// <exception cref="NotImplementedException"></exception>
+        [JsonRpcMethod("textDocument/inlayHint")]
+        protected virtual Result<InlayHintResult[], ResponseError> InlayHint(InlayHintParams param, CancellationToken token) => throw new NotImplementedException();
+
+        /// <summary>
+        /// 请求从客户机发送到服务器，以解析给定嵌入提示的附加信息。这通常用于计算工具提示，
+        /// 位置或嵌入提示的标签部分的命令属性，以避免在textDocument/inlayHint请求期间进行不必要的计算。
+        /// </summary>
+        /// <seealso>Spec 3.17.0</seealso>
+        /// <exception cref="NotImplementedException"></exception>
+        [JsonRpcMethod("inlayHint/resolve")]
+        protected virtual Result<InlayHintResult, ResponseError> InlayHintResolve(InlayHintResult param, CancellationToken token) => throw new NotImplementedException();
+
+
         #endregion
     }
 }

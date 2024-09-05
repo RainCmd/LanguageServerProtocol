@@ -124,5 +124,17 @@
         /// </summary>
         /// <seealso>Spec 3.10.0</seealso>
         public FoldingRangeCapabilities? foldingRange;
+
+        /// <summary>
+        /// Capabilities specific to the `textDocument/inlineValue` request.
+        /// </summary>
+        /// <seealso>Spec 3.17.0</seealso>
+        public RegistrationCapabilities? inlineValue;
+
+        /// <summary>
+        /// Capabilities specific to the `textDocument/inlayHint` request.
+        /// </summary>
+        /// <seealso>Spec 3.17.0</seealso>
+        public InlayHintClientCapabilities? inlayHint;
     }
 }

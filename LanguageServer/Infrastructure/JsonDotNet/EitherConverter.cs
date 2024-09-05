@@ -39,6 +39,8 @@ namespace LanguageServer.Infrastructure.JsonDotNet
                 [typeof(TextEditOrInsertReplaceEdit)] = ToTextEditOrInsertReplaceEdit,
                 [typeof(DocumentDiagnosticReport)] = ToDocumentDiagnosticReport,
                 [typeof(RelatedDocumentDiagnosticReport)] = ToRelatedDocumentDiagnosticReport,
+                [typeof(InlineValueResult)] = ToInlineValueResult,
+                [typeof(InlayHintLabel)] = ToInlayHintLabel,
             };
         }
 
@@ -307,6 +309,30 @@ namespace LanguageServer.Infrastructure.JsonDotNet
             }
         }
 
+        private InlineValueResult? ToInlineValueResult(JToken token)
+        {
+            switch (token.Type)
+            {
+                case JTokenType.Null: return null;
+                case JTokenType.Object:
+                    var obj = (JObject)token;
+                    if (obj.ContainsKey("text")) return obj.ToObject<InlineValueText>()!;
+                    else if (obj.ContainsKey("caseSensitiveLookup")) return obj.ToObject<InlineValueVariableLookup>()!;
+                    else return obj.ToObject<InlineValueEvaluatableExpression>()!;
+                default: throw new JsonSerializationException();
+            }
+        }
+
+        private InlayHintLabel? ToInlayHintLabel(JToken token)
+        {
+            return token.Type switch
+            {
+                JTokenType.Null => null,
+                JTokenType.String => new InlayHintLabel(token.ToObject<string>()!),
+                JTokenType.Array => new InlayHintLabel(token.ToObject<InlayHintLabelPart[]>()!),
+                _ => throw new JsonSerializationException(),
+            };
+        }
         #endregion
 
         /// <summary>
