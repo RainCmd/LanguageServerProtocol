@@ -138,7 +138,7 @@
         /// <c>prepareSupport</c> in its initial <c>initialize</c> request.
         /// 服务器提供重命名支持。只有当客户端在初始的“initialize”请求中声明它支持“prepareSupport”时，才可以指定RenameOptions。
         /// </remarks>
-        public bool? renameProvider;
+        public RenameOptionsOrBoolean? renameProvider;
 
         /// <summary>
         /// 服务器提供折叠提供程序支持。

@@ -18,24 +18,24 @@ namespace LanguageServer
                 : VoidResult<TError>.Error(response.error);
         }
 
-        public static ResponseError ParseError() => new(ErrorCodes.ParseError, "Parse error");
-        public static ResponseError<T> ParseError<T>(T data) => new(ErrorCodes.ParseError, "Parse error") { data = data };
+        public static ResponseError ParseError(string message = "Parse error") => new(ErrorCodes.ParseError, message);
+        public static ResponseError<T> ParseError<T>(T data, string message = "Parse error") => new(ErrorCodes.ParseError, message) { data = data };
 
-        public static ResponseError InvalidRequest() => new(ErrorCodes.InvalidRequest, "Invalid Request");
-        public static ResponseError<T> InvalidRequest<T>(T data) => new(ErrorCodes.InvalidRequest, "Invalid Request") { data = data };
+        public static ResponseError InvalidRequest(string message = "Invalid Request") => new(ErrorCodes.InvalidRequest, message);
+        public static ResponseError<T> InvalidRequest<T>(T data, string message = "Invalid Request") => new(ErrorCodes.InvalidRequest, message) { data = data };
 
-        public static ResponseError MethodNotFound() => new(ErrorCodes.MethodNotFound, "Method not found");
-        public static ResponseError<T> MethodNotFound<T>(T data) => new(ErrorCodes.MethodNotFound, "Method not found") { data = data };
+        public static ResponseError MethodNotFound(string message = "Method not found") => new(ErrorCodes.MethodNotFound, message);
+        public static ResponseError<T> MethodNotFound<T>(T data, string message = "Method not found") => new(ErrorCodes.MethodNotFound, message) { data = data };
 
-        public static ResponseError InvalidParams() => new(ErrorCodes.InvalidParams, "Invalid params");
-        public static ResponseError<T> InvalidParams<T>(T data) => new(ErrorCodes.InvalidParams, "Invalid params") { data = data };
+        public static ResponseError InvalidParams(string message = "Invalid params") => new(ErrorCodes.InvalidParams, message);
+        public static ResponseError<T> InvalidParams<T>(T data, string message = "Invalid params") => new(ErrorCodes.InvalidParams, message) { data = data };
 
-        public static TResponseError InternalError<TResponseError>() where TResponseError : ResponseError, new() => new() { code = ErrorCodes.InternalError, message = "Internal error" };
-        public static ResponseError InternalError() => new(ErrorCodes.InternalError, "Internal error");
-        public static ResponseError<T> InternalError<T>(T data) => new(ErrorCodes.InternalError, "Internal error") { data = data };
+        public static TResponseError InternalError<TResponseError>(string message = "Internal error") where TResponseError : ResponseError, new() => new() { code = ErrorCodes.InternalError, message = message };
+        public static ResponseError InternalError(string message = "Internal error") => new(ErrorCodes.InternalError, message);
+        public static ResponseError<T> InternalError<T>(T data, string message = "Internal error") => new(ErrorCodes.InternalError, message) { data = data };
 
-        public static ResponseError ServerError(ErrorCodes code) => new(code, "Server error");
-        public static ResponseError<T> ServerError<T>(ErrorCodes code, T data) => new(code, "Server error") { data = data };
+        public static ResponseError ServerError(ErrorCodes code, string message = "Server error") => new(code, message);
+        public static ResponseError<T> ServerError<T>(ErrorCodes code, T data, string message = "Server error") => new(code, message) { data = data };
     }
 
     internal class MessageTest(string jsonrpc, NumberOrString id, string method)

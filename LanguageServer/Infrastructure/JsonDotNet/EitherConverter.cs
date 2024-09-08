@@ -41,6 +41,7 @@ namespace LanguageServer.Infrastructure.JsonDotNet
                 [typeof(RelatedDocumentDiagnosticReport)] = ToRelatedDocumentDiagnosticReport,
                 [typeof(InlineValueResult)] = ToInlineValueResult,
                 [typeof(InlayHintLabel)] = ToInlayHintLabel,
+                [typeof(RenameOptionsOrBoolean)] = ToRenameOptionsOrBoolean,
             };
         }
 
@@ -328,11 +329,23 @@ namespace LanguageServer.Infrastructure.JsonDotNet
             return token.Type switch
             {
                 JTokenType.Null => null,
-                JTokenType.String => new InlayHintLabel(token.ToObject<string>()!),
-                JTokenType.Array => new InlayHintLabel(token.ToObject<InlayHintLabelPart[]>()!),
+                JTokenType.String => token.ToObject<string>()!,
+                JTokenType.Array => token.ToObject<InlayHintLabelPart[]>()!,
                 _ => throw new JsonSerializationException(),
             };
         }
+
+        private RenameOptionsOrBoolean? ToRenameOptionsOrBoolean(JToken token)
+        {
+            return token.Type switch
+            {
+                JTokenType.Null => null,
+                JTokenType.Boolean => token.ToObject<bool>(),
+                JTokenType.Object => token.ToObject<RenameOptions>()!,
+                _ => throw new JsonSerializationException(),
+            };
+        }
+
         #endregion
 
         /// <summary>

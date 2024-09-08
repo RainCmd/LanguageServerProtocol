@@ -130,6 +130,20 @@
     }
 
     /// <summary>
+    /// textDocument/prepareRename
+    /// </summary>
+    /// <remarks>
+    /// 只有当客户端在初始化请求中声明支持prepareSupport时，才可以指定RenameOptions。
+    /// </remarks>
+    public class RenameOptions
+    {
+        /// <summary>
+        /// 重命名应该在执行之前进行检查和测试。
+        /// </summary>
+        public bool? prepareProvider;
+    }
+
+    /// <summary>
     /// For <c>initialize</c>
     /// </summary>
     /// <remarks>

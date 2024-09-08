@@ -86,7 +86,11 @@ namespace LanguageServer
                 result.documentLinkProvider ??= new DocumentLinkOptions();
                 result.documentLinkProvider.resolveProvider = true;
             }
-            if (capabilities.Contains("textDocument/rename")) result.renameProvider = true;
+            if (capabilities.Contains("textDocument/rename"))
+            {
+                if (capabilities.Contains("textDocument/prepareRename")) result.renameProvider = new RenameOptions() { prepareProvider = true };
+                else result.renameProvider = true;
+            }
             if (capabilities.Contains("textDocument/foldingRange")) result.foldingRangeProvider = true;
             if (capabilities.Contains("textDocument/diagnostic")) result.diagnosticProvider = new DiagnosticOptionsOrProviderOptions(new DiagnosticOptions(true, true));
             if (capabilities.Contains("textDocument/inlineValue")) result.inlineValueProvider = true;
@@ -497,6 +501,14 @@ namespace LanguageServer
         /// </summary>
         [JsonRpcMethod("documentLink/resolve")]
         protected virtual Result<DocumentLink, ResponseError> ResolveDocumentLink(DocumentLink param, CancellationToken token) => throw new NotImplementedException();
+
+        /// <summary>
+        /// 准备重命名请求从客户端发送到服务器，用于在给定位置设置并测试重命名操作的有效性。
+        /// </summary>
+        /// <seealso>Since version 3.12.0</seealso>>
+        /// <exception cref="NotImplementedException"></exception>
+        [JsonRpcMethod("textDocument/prepareRename")]
+        protected virtual Result<Parameters.Range, ResponseError> PrepareRename(TextDocumentPositionParams param, CancellationToken token) => throw new NotImplementedException();
 
         // dynamicRegistration?: boolean;
         // Registration Options: TextDocumentRegistrationOptions

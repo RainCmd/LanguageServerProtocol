@@ -26,6 +26,7 @@
     /// <item><see cref="Parameters.TextDocument.RelatedDocumentDiagnosticReport"/></item>
     /// <item><see cref="Parameters.TextDocument.InlineValueResult"/></item>
     /// <item><see cref="Parameters.General.InlayHintLabel"/></item>
+    /// <item><see cref="Parameters.General.RenameOptionsOrBoolean"/></item>
     /// </list>
     /// </remarks>
     public abstract class Either(object value, Type type)
