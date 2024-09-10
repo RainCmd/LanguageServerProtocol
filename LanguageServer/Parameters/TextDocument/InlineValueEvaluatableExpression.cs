@@ -9,14 +9,14 @@
     public class InlineValueEvaluatableExpression(Range range)
     {
         /// <summary>
-        /// The document range for which the inline value applies.
-        /// The range is used to extract the evaluatable expression from the underlying document.
+        /// 应用内联值的文档范围。
+        /// 该范围用于从基础文档中提取可求值表达式。
         /// </summary>
-        Range range = range;
+        public Range range = range;
 
         /// <summary>
-        /// If specified the expression overrides the extracted expression.
+        /// 如果指定，则表达式将覆盖提取的表达式。
         /// </summary>
-        string? expression;
+        public string? expression;
     }
 }
