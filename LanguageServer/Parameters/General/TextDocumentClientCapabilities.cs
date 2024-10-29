@@ -136,5 +136,17 @@
         /// </summary>
         /// <seealso>Spec 3.17.0</seealso>
         public InlayHintClientCapabilities? inlayHint;
+
+        /// <summary>
+        /// Capabilities specific to the various call hierarchy requests.
+        /// </summary>
+        /// <seealso>Spec 3.16.0</seealso>
+        public CallHierarchyClientCapabilities? callHierarchy;
+
+        /// <summary>
+        /// Capabilities specific to the various type hierarchy requests.
+        /// </summary>
+        /// <seealso>Spec 3.17.0</seealso>
+        public TypeHierarchyClientCapabilities? typeHierarchy;
     }
 }

@@ -95,6 +95,8 @@ namespace LanguageServer
             if (capabilities.Contains("textDocument/diagnostic")) result.diagnosticProvider = new DiagnosticOptionsOrProviderOptions(new DiagnosticOptions(true, true));
             if (capabilities.Contains("textDocument/inlineValue")) result.inlineValueProvider = true;
             if (capabilities.Contains("textDocument/inlayHint")) result.inlayHintProvider = true;
+            if (capabilities.Contains("textDocument/prepareCallHierarchy")) result.callHierarchyProvider = true;
+            if (capabilities.Contains("textDocument/prepareTypeHierarchy")) result.typeHierarchyProvider = true;
 
             return result;
         }
@@ -559,7 +561,67 @@ namespace LanguageServer
         [JsonRpcMethod("inlayHint/resolve")]
         protected virtual Result<InlayHintResult, ResponseError> InlayHintResolve(InlayHintResult param, CancellationToken token) => throw new NotImplementedException();
 
+        /// <summary>
+        /// 调用层次结构请求从客户端发送到服务器，以返回给定文本文档位置的 language 元素的调用层次结构。调用层次结构请求分两步执行：
+        /// 1.首先，为给定的文本文档位置解析 Call hierarchy 项
+        /// 2.对于呼叫层次结构项目，将解析传入或传出呼叫层次结构项目。
+        /// </summary>
+        /// <seealso>Spec 3.16.0</seealso>
+        /// <exception cref="NotImplementedException"></exception>
+        [JsonRpcMethod("textDocument/prepareCallHierarchy")]
+        protected virtual Result<CallHierarchyItem[], ResponseError> PrepareCallHierarchy(CallHierarchyPrepareParams param, CancellationToken token) => throw new NotImplementedException();
 
+        /// <summary>
+        /// 该请求从客户端发送到服务器，以解析给定调用层次结构项的传入呼叫。
+        /// 该请求未定义自己的客户端和服务器功能。
+        /// 仅当服务器注册 textDocument/prepareCallHierarchy 请求时，才会发出此请求。
+        /// </summary>
+        /// <seealso>Spec 3.16.0</seealso>
+        /// <exception cref="NotImplementedException"></exception>
+        [JsonRpcMethod("callHierarchy/incomingCalls")]
+        protected virtual Result<CallHierarchyIncomingCall[], ResponseError> CallHierarchyIncomingCalls(CallHierarchyIncomingCallsParams param, CancellationToken token) => throw new NotImplementedException();
+
+        /// <summary>
+        /// 该请求从客户端发送到服务器，以解析给定调用层次结构项的传出呼叫。
+        /// 该请求未定义自己的客户端和服务器功能。
+        /// 仅当服务器注册 textDocument/prepareCallHierarchy 请求时，才会发出此请求。
+        /// </summary>
+        /// <seealso>Spec 3.16.0</seealso>
+        /// <exception cref="NotImplementedException"></exception>
+        [JsonRpcMethod("callHierarchy/outgoingCalls")]
+        protected virtual Result<CallHierarchyOutgoingCall[], ResponseError> CallHierarchyOutgoingCalls(CallHierarchyOutgoingCallsParams param, CancellationToken token) => throw new NotImplementedException();
+
+        /// <summary>
+        /// 类型层次结构请求从客户端发送到服务器，以返回给定文本文档位置的 language 元素的类型层次结构。如果服务器无法从位置推断出有效类型，则返回。类型层次结构请求分两个步骤执行：
+        /// 1.首先，为给定的文本文档位置准备一个类型层次结构项。
+        /// 2.对于类型层次结构项，将解析 SuperType 或 Subtype Type 层次结构项。
+        /// </summary>
+        /// <seealso>Spec 3.17.0</seealso>
+        /// <exception cref="NotImplementedException"></exception>
+        [JsonRpcMethod("textDocument/prepareTypeHierarchy")]
+        protected virtual Result<TypeHierarchyItem[], ResponseError> PrepareTypeHierarchy(TypeHierarchyPrepareParams param, CancellationToken token) => throw new NotImplementedException();
+
+        /// <summary>
+        /// 该请求从客户端发送到服务器，以解析给定类型层次结构项的超类型。
+        /// 如果服务器无法从 params 中推断出有效类型，则返回。
+        /// 该请求未定义自己的客户端和服务器功能。
+        /// 仅当服务器注册 textDocument/prepareTypeHierarchy 请求时，才会发出此命令。
+        /// </summary>
+        /// <seealso>Spec 3.16.0</seealso>
+        /// <exception cref="NotImplementedException"></exception>
+        [JsonRpcMethod("typeHierarchy/supertypes")]
+        protected virtual Result<TypeHierarchyItem[], ResponseError> TypeHierarchySupertypes(TypeHierarchySupertypesParams param, CancellationToken token) => throw new NotImplementedException();
+
+        /// <summary>
+        /// 该请求从客户端发送到服务器，以解析给定类型层次结构项目的子类型。
+        /// 如果服务器无法从 params 中推断出有效类型，则返回。
+        /// 该请求未定义自己的客户端和服务器功能。
+        /// 仅当服务器注册 textDocument/prepareTypeHierarchy 请求时，才会发出此命令。
+        /// </summary>
+        /// <seealso>Spec 3.16.0</seealso>
+        /// <exception cref="NotImplementedException"></exception>
+        [JsonRpcMethod("typeHierarchy/subtypes")]
+        protected virtual Result<TypeHierarchyItem[], ResponseError> TypeHierarchySubtypes(TypeHierarchySubtypesParams param, CancellationToken token) => throw new NotImplementedException();
         #endregion
     }
 }

@@ -10,13 +10,13 @@
     /// e.g. the range of an identifier.
     /// </remarks>
     /// <seealso>Spec 3.10.0</seealso>
-    public class DocumentSymbol
+    public class DocumentSymbol(string name, SymbolKind kind, Range range, Range selectionRange)
     {
         /// <summery>
         /// The name of this symbol.
         /// </summery>
         /// <seealso>Spec 3.10.0</seealso>
-        public string? name;
+        public string name = name;
 
         /// <summery>
         /// More detail for this symbol, e.g the signature of a function. If not provided the name is used.
@@ -28,7 +28,13 @@
         /// The kind of this symbol.
         /// </summery>
         /// <seealso>Spec 3.10.0</seealso>
-        public SymbolKind? kind;
+        public SymbolKind kind = kind;
+
+        /// <summary>
+        /// Tags for this document symbol.
+        /// </summary>
+        /// <seealso>Spec 3.16.0</seealso>
+        public SymbolTag[]? tags;
 
         /// <summery>
         /// Indicates if this symbol is deprecated.
@@ -42,14 +48,14 @@
         /// inside the symbol to reveal in the symbol in the UI.
         /// </summery>
         /// <seealso>Spec 3.10.0</seealso>
-        public Range? range;
+        public Range range = range;
 
         /// <summery>
         /// The range that should be selected and revealed when this symbol is being picked, e.g the name of a function.
         /// Must be contained by the the <c>range</c>.
         /// </summery>
         /// <seealso>Spec 3.10.0</seealso>
-        public Range? selectionRange;
+        public Range selectionRange = selectionRange;
 
         /// <summery>
         /// Children of this symbol, e.g. properties of a class.

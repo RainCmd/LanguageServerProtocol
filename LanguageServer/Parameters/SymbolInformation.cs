@@ -4,17 +4,23 @@
     /// For <c>textDocument/documentSymbol</c> and <c>workspace/symbol</c>
     /// </summary>
     /// <seealso>Spec 3.7.2</seealso>
-    public class SymbolInformation
+    public class SymbolInformation(string name, SymbolKind kind, Location location)
     {
         /// <summary>
         /// The name of this symbol.
         /// </summary>
-        public string? name;
+        public string name = name;
 
         /// <summary>
         /// The kind of this symbol.
         /// </summary>
-        public SymbolKind? kind;
+        public SymbolKind kind = kind;
+
+        /// <summary>
+        /// Tags for this symbol.
+        /// </summary>
+        /// <seealso>Spec 3.16.0</seealso>
+        public SymbolTag[]? tags;
 
         /// <summary>
         /// Indicates if this symbol is deprecated.
@@ -32,7 +38,7 @@
         /// the range usually spans more then the actual symbol's name and does
         /// normally include things like visibility modifiers.
         /// </remarks>
-        public Location? location;
+        public Location location = location;
 
         /// <summary>
         /// The name of the symbol containing this symbol.

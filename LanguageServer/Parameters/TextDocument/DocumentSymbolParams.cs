@@ -1,7 +1,7 @@
 ﻿namespace LanguageServer.Parameters.TextDocument
 {
-    public class DocumentSymbolParams
+    public class DocumentSymbolParams(TextDocumentIdentifier textDocument)
     {
-        public TextDocumentIdentifier? textDocument;
+        public TextDocumentIdentifier textDocument = textDocument;
     }
 }
