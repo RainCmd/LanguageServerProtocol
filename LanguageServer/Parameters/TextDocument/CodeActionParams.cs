@@ -6,21 +6,21 @@
     /// <remarks>
     /// Params for the CodeActionRequest
     /// </remarks>
-    public class CodeActionParams
+    public class CodeActionParams(TextDocumentIdentifier textDocument, Range range, CodeActionContext context)
     {
         /// <summary>
         /// The document in which the command was invoked.
         /// </summary>
-        public TextDocumentIdentifier? textDocument;
+        public TextDocumentIdentifier textDocument = textDocument;
 
         /// <summary>
         /// The range for which the command was invoked.
         /// </summary>
-        public Range? range;
+        public Range range = range;
 
         /// <summary>
         /// Context carrying additional information.
         /// </summary>
-        public CodeActionContext? context;
+        public CodeActionContext context = context;
     }
 }

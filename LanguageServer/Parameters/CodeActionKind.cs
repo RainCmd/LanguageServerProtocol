@@ -3,8 +3,8 @@
     /// <summery>
     /// A set of predefined code action kinds
     /// </summery>
-    /// <seealso cref="LanguageServer.Parameters.General.CodeActionKindCapabilities.valueSet"/>
-    /// <seealso cref="LanguageServer.Parameters.TextDocument.CodeActionContext.only"/>
+    /// <seealso cref="General.CodeActionKindCapabilities.valueSet"/>
+    /// <seealso cref="TextDocument.CodeActionContext.only"/>
     /// <seealso>Spec 3.8.0</seealso>
     public static class CodeActionKind
     {
