@@ -45,9 +45,9 @@ namespace LanguageServer.Parameters.General
         /// 如果省略，则禁用跟踪('off')。
         /// </remarks>
         /// <value>
-        /// See <see cref="LanguageServer.Parameters.TraceKind"/> for an enumeration of standardized kinds.
+        /// See <see cref="TraceKind"/> for an enumeration of standardized kinds.
         /// </value>
-        /// <seealso cref="LanguageServer.Parameters.TraceKind"/>
+        /// <seealso cref="TraceKind"/>
         public string? trace;
 
         /// <summary>

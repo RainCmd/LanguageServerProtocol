@@ -4,7 +4,7 @@
     /// For <c>workspace/configuration</c>
     /// </summary>
     /// <seealso>Spec 3.6.0</seealso>
-    public class ConfigurationParams
+    public class ConfigurationParams(ConfigurationItem[] items)
     {
         /// <summary>
         /// The order of the returned configuration settings correspond
@@ -15,6 +15,6 @@
         /// for the first configuration item in the params).
         /// </remarks>
         /// <seealso>Spec 3.6.0</seealso>
-        public ConfigurationItem[]? items;
+        public ConfigurationItem[] items = items;
     }
 }

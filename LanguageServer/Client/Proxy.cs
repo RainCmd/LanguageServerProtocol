@@ -33,6 +33,10 @@ namespace LanguageServer.Client
         /// </summary>
         public TextDocumentProxy TextDocument => _textDocument ??= new TextDocumentProxy(this);
 
+        public void SendNotification(string method)
+        {
+            connection.SendNotification(new VoidNotificationMessage() {  method = method });
+        }
         public void SendNotification<T>(string method, T param)
         {
             connection.SendNotification(new NotificationMessage<T>()

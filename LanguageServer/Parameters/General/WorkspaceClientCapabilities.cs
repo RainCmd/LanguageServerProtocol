@@ -48,5 +48,10 @@
         /// </summary>
         /// <seealso>Spec 3.6.0</seealso>
         public bool configuration;
+
+        /// <summary>
+        /// 特定于代码镜头请求范围到工作区的功能。
+        /// </summary>
+        public CodeLensWorkspaceClientCapabilities? codeLens;
     }
 }
